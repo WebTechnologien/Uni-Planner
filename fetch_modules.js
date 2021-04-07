@@ -10,8 +10,11 @@
     xmlhttp.send();
 
     function myFunction(response) {
+        //JSON-Response des Servers in Arrays aufteilen -> ein Array für jedes Semester
         var arr = JSON.parse(response);
         var sem=[[],[],[],[],[],[],[]];
+
+        //Unbenutztes Array für Wahlpflicht Module
         var wpf=[];
 
         for(i = 0; i < arr.length; i++) {
@@ -42,6 +45,7 @@
             }
         }
 
+        //Dynamischen HTML-Code zusammenbauen
         html='';
             for(i = 0; i < sem.length; i++){
                 html+='<div class="semester-container">'+'Semester '+(i+1);

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="92ec8d6b-8b30-44f1-bf1e-808e334899ef" name="apachi" url="http://localhost/webtech">
+        <fileTransfer mountedRoot="C:\xampp\htdocs\webtech" accessType="MOUNT" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>
