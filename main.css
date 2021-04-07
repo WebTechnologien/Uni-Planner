@@ -1,0 +1,64 @@
+
+body {
+    background-color: #F5F5F5;
+    position: relative;
+}
+
+h1{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#plan-container{
+    color: black;
+    display: flex;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
+
+.semester-container {
+    background-color: white;
+    flex-basis: 100%;
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 4px;
+    margin-left: 8px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11),
+    0 4px 4px rgba(0, 0, 0, 0.11),
+    0 8px 16px rgba(0, 0, 0, 0.11);
+}
+.dragenter{
+    background-color: lightgray;
+}
+
+.module-draggable {
+    background-color: white;
+    border: 1px solid darkgray;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 5px;
+    font-weight: normal;
+    text-align: left;
+    height: 60px;
+}
+
+.module-draggable h1{
+    font-size: 0.8vw;
+}
+
+/*body::after {*/
+/*    content: '';*/
+/*    display: block;*/
+/*    height: 50px;*/
+/*}*/
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+}
