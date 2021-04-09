@@ -1,5 +1,5 @@
 
-function initEventListeners(){
+function initEventListeners() {
 
     const semContainers = document.querySelectorAll('.semester-container');
     const modules = document.querySelectorAll('.module-draggable');
@@ -14,40 +14,50 @@ function initEventListeners(){
 
     modules.forEach(module => {
         module.addEventListener('dragstart', onDragStart);
+        module.addEventListener('dragend', onDragEnd);
     });
-}
 
-var counter=0;
-function onDragStart(event) {
-    event.dataTransfer.setData('text/plain', event.target.id);
-}
 
-function onDragOver(event) {
-    event.preventDefault();
-}
-
-function onDragEnter(event){
-    event.preventDefault();
-    event.currentTarget.classList.add('dragenter');
-    counter++;
-    console.log(event.currentTarget.innerText.split("\n")[0]+" entered")
-}
-
-function onDragLeave(event){
-    counter--;
-    if(counter===0){
-        event.currentTarget.classList.remove('dragenter');
+    function onDragStart(event) {
+        event.dataTransfer.setData('text/plain', event.target.id);
+        modules.forEach(module=>{
+            if(event.currentTarget!==module){
+            module.classList.add('noPointer');
+            console.log(module.style.pointerEvents)}
+        })
+        event.currentTarget.classList.add('hide');
     }
-    console.log(counter);
-    console.log(event.currentTarget.innerText.split("\n")[0]+" left");
-}
 
-function onDrop(event) {
-    const moduleID = event.dataTransfer.getData('text');
-    const module = document.getElementById(moduleID);
-    let target = event.currentTarget;
-    target.classList.remove('dragenter');
-    target.appendChild(module);
-    counter=0;
-    event.dataTransfer.clearData();
+    function onDragOver(event) {
+        event.preventDefault();
+        event.currentTarget.classList.add('dragenter');
+
+    }
+
+    function onDragEnter(event) {
+        event.preventDefault();
+        console.log("entered")
+    }
+
+    function onDragLeave(event) {
+        event.currentTarget.classList.remove('dragenter');
+        console.log("left")
+    }
+
+    function onDrop(event) {
+        const moduleID = event.dataTransfer.getData('text');
+        const module = document.getElementById(moduleID);
+        let target = event.currentTarget;
+        target.appendChild(module);
+
+        target.classList.remove('dragenter');
+        event.dataTransfer.clearData();
+    }
+
+    function onDragEnd(event) {
+        modules.forEach(module=>{
+            module.classList.remove('noPointer');
+        })
+        event.currentTarget.classList.remove('hide');
+    }
 }
