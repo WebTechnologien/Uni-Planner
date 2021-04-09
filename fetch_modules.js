@@ -46,7 +46,7 @@
         }
 
         //Dynamischen HTML-Code zusammenbauen
-        html='';
+        let html = '';
             for(i = 0; i < sem.length; i++){
                 html+='<div class="semester-container">'+'Semester '+(i+1);
                 for(j = 0; j < sem[i].length; j++){
