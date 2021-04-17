@@ -1,6 +1,5 @@
 
     xmlhttp = new XMLHttpRequest();
-
     xmlhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
             myFunction(this.responseText);
@@ -16,7 +15,7 @@
 
         //Unbenutztes Array für Wahlpflicht Module
         var wpf=[];
-
+        console.log(wpf);
         for(i = 0; i < arr.length; i++) {
             switch (parseInt(arr[i].Semester)){
                 case 1:
