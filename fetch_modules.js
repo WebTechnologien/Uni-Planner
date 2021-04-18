@@ -57,4 +57,5 @@
             }
             document.querySelector('#plan-container').innerHTML=html;
        initEventListeners();
+
     }

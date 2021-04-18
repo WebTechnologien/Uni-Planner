@@ -1,7 +1,27 @@
 
+.navbar{
+    background: white;
+   box-shadow:  0 2px 4px rgba(0, 0, 0, 0.08);
+    max-height: 50px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+#logo img{
+
+    margin-left: 20px;
+    height: 50px;
+}
+
 body {
     background-color: #F5F5F5;
     position: relative;
+    font-family: sans-serif;
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 h1{
@@ -12,26 +32,52 @@ h1{
 #plan-container{
     color: black;
     display: flex;
-    font-family: sans-serif;
     font-weight: bold;
-    text-align: center;
-    width: 100%;
 }
 
-.semester-container {
+#wahlpflicht-container{
     background-color: white;
-    flex-basis: 100%;
-    flex-grow: 1;
+    text-align: center;
+
     padding: 10px;
     border-radius: 4px;
+    margin-top: 20px;
     margin-left: 8px;
+
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11),
     0 4px 4px rgba(0, 0, 0, 0.11),
     0 8px 16px rgba(0, 0, 0, 0.11);
 }
-.dragenter{
-    background-color: #e0e0e0;
+
+#wahlpflicht-flexbox{
+    display: flex;
+    flex-direction: row;
+    box-shadow: none;
+
 }
+
+.wahlpflichtmodul{
+    margin-right: 22px;
+    width: 210px;
+}
+
+
+.semester-container {
+    background-color: white;
+    text-align: center;
+
+    flex-basis: 100%;
+    flex-grow: 1;
+
+    padding: 10px;
+    border-radius: 4px;
+    margin-left: 8px;
+
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11),
+    0 4px 4px rgba(0, 0, 0, 0.11);
+    /*0 8px 16px rgba(0, 0, 0, 0.11);*/
+}
+
 
 .module-draggable {
     background-color: white;
@@ -48,6 +94,10 @@ h1{
 
 .module-draggable h1{
     font-size: 0.8vw;
+}
+
+.dragenter{
+    background-color: #e0e0e0;
 }
 
 .hide {
@@ -71,3 +121,6 @@ footer {
     height: 50px;
     text-align: center;
 }
+
+
+
