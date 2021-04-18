@@ -11,7 +11,7 @@
 }
 #logo img{
 
-    margin-left: 20px;
+    padding: 0 32px ;
     height: 50px;
 }
 
@@ -53,12 +53,16 @@ h1{
     display: flex;
     flex-direction: row;
     box-shadow: none;
+    flex-wrap: wrap;
 
 }
 
-.wahlpflichtmodul{
+#wahlpflicht-container .module-draggable{
     margin-right: 22px;
-    width: 210px;
+}
+
+#plan-container .semester-container .module-draggable {
+    margin-right: 0;
 }
 
 
