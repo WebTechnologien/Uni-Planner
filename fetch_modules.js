@@ -7,11 +7,11 @@
     }
     xmlhttp.open("GET", "fetch_modules.php", true);
     xmlhttp.send();
-
+    var sem;
     function myFunction(response) {
         //JSON-Response des Servers in Arrays aufteilen -> ein Array für jedes Semester
         var arr = JSON.parse(response);
-        var sem=[[],[],[],[],[],[],[]];
+        sem=[[],[],[],[],[],[],[]];
 
         //Unbenutztes Array für Wahlpflicht Module
         var wpf=[];
@@ -56,6 +56,8 @@
                 html+='</div>';
             }
             document.querySelector('#plan-container').innerHTML=html;
+        console.log(document.querySelector('#plan-container'));
+
        initEventListeners();
 
     }

@@ -48,6 +48,7 @@ function initEventListeners() {
         const moduleID = event.dataTransfer.getData('text');
         const module = document.getElementById(moduleID);
         let target = event.currentTarget;
+        if(module.isEqualNode())
         target.appendChild(module);
 
         target.classList.remove('dragenter');
