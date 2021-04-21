@@ -7,20 +7,20 @@ if($conn->connect_error){
     die("Connection failed".$conn->connect_error);
 }
 
-$result = $conn->query("SELECT titel, kuerzel, semester, modul.mid, pID, listID, posID  
+$result = $conn->query("SELECT modul.mid, titel, semester,  pID, listID, posID  
                                FROM modul 
-                                INNER JOIN moduls_plan_pos mpp on modul.mID = mpp.mID");
+                                INNER JOIN moduls_plan_pos mpp on modul.mID = mpp.mID
+                                  ORDER BY listID, posID");
 
 $outp = "[";
 while($rs = $result->fetch_array(MYSQLI_ASSOC)) {
     if ($outp != "[") {$outp .= ",";}
-    $outp .= '{"ModulID":"'  . $rs["mid"] . '",';
-    $outp .= '{"PlanID":"'  . $rs["pID"] . '",';
-    $outp .= '{"listID":"'  . $rs["listID"] . '",';
-    $outp .= '{"Titel":"'  . $rs["titel"] . '",';
-    $outp .= '"Kuerzel":"'  . $rs["kuerzel"] . '",';
-    $outp .= '"Semester":"'   . $rs["semester"] . '",';
-    $outp .= '"posID":"'   . $rs["posID"] .      '"}';
+    $outp .= '{"modulID":"'  . $rs["mid"] . '",';
+    $outp .= '"planID":"'  . $rs["pID"] . '",';
+    $outp .= '"titel":"'  . $rs["titel"] . '",';
+    $outp .= '"listID":"'  . $rs["listID"] . '",';
+    $outp .= '"semester":"'   . $rs["semester"] . '"}';
+
 }
 $outp .="]";
 

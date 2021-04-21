@@ -51,12 +51,11 @@ h1{
             0 8px 16px rgba(0, 0, 0, 0.11);
 }
 
-#wahlpflicht-flexbox{
+#wahlpflicht-container .wahlpflicht-flexbox{
     display: flex;
     flex-direction: row;
     box-shadow: none;
     flex-wrap: wrap;
-
 }
 
 #wahlpflicht-container .module-draggable{
@@ -101,6 +100,7 @@ h1{
 
 .module-draggable h1{
     font-size: 0.8vw;
+    word-break: break-word;
 }
 
 .dragenter{

@@ -48,17 +48,42 @@ function initEventListeners() {
         const moduleID = event.dataTransfer.getData('text');
         const module = document.getElementById(moduleID);
         let target = event.currentTarget;
-        if(module.isEqualNode())
-        target.appendChild(module);
+
+        if(module!=null){
+            target.appendChild(module);
+            moveModul(module,target.id)
+
+            saveModules();
+        }
 
         target.classList.remove('dragenter');
         event.dataTransfer.clearData();
     }
 
     function onDragEnd(event) {
-        modules.forEach(module=>{
-            module.classList.remove('noPointer');
+        modules.forEach(modules=>{
+            modules.classList.remove('noPointer');
         })
         event.currentTarget.classList.remove('hide');
     }
 }
+
+    function moveModul(module, newIndex){
+        let index = getIndexOfModule(module);
+        let oldListIndex = index[0];
+        let oldPosIndex = index[1];
+        sem[newIndex].push(sem[oldListIndex][oldPosIndex]);
+        sem[oldListIndex].splice(oldPosIndex,1);
+    }
+
+    function getIndexOfModule(module){
+    console.log("searching for: "+module.id);
+        for (let i = 0; i < sem.length; i++) {
+            for (let j = 0; j < sem[i].length; j++){
+                if(sem[i][j].modulID===module.id){
+                    return [i,j];
+                }
+            }
+        }
+        return -1;
+    }

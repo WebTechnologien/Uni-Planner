@@ -49,9 +49,9 @@
             for(i = 0; i < sem.length; i++){
                 html+='<div class="semester-container">'+'Semester '+(i+1);
                 for(j = 0; j < sem[i].length; j++){
-                    html+='<div id="'+sem[i][j].Kuerzel+"\"";
+                    html+='<div id="'+sem[i][j].modulID+"\"";
                     html+='class="module-draggable" draggable="true">';
-                    html+='<h1>'+sem[i][j].Titel+'</h1>'+'</div>';
+                    html+='<h1>'+sem[i][j].titel+'</h1>'+'</div>';
                 }
                 html+='</div>';
             }
