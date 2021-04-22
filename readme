@@ -1,1 +1,24 @@
 This is a project to bring more organization into the life of some lost students
+
+v2.0 
+Saving the current order of the modules to a database 
+
+v1.3
+Added logo, favicon and navbar 
+
+v1.2
+Added elective modules and an area to choose from 
+
+v1.1 
+Added more visual feedback like hover-effects
+Improved the drag and drop (modules can be dragged and dropped over modules and will be added to target semester)
+
+v1.0 
+Visualizing different modules for the Semester 1 to 7
+Move Modules between Semesters
+
+
+ToDo 
+- UserManagement 
+- Improve Drag and Drop (drop module between others)
+- 
