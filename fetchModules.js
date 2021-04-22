@@ -8,7 +8,6 @@ function myFunction(response) {
     const arr = JSON.parse(response);
     sem=[[],[],[],[],[],[],[],[]];
 
-
     for(let i = 0; i < arr.length; i++) {
         switch (parseInt(arr[i].listID)){
             case 1:
@@ -36,7 +35,7 @@ function myFunction(response) {
                 sem[0].push(arr[i])
         }
     }
-    console.log(sem);
+
     //Dynamischen HTML-Code zusammenbauen
     let html = '';
     for(let i = 1; i < sem.length; i++){
