@@ -7,7 +7,7 @@
 
 <script>
     var xmlhttp = new XMLHttpRequest();
-    var url = "fetch_moduls.php";
+    var url = "fetchModules.php";
 
     xmlhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
@@ -24,9 +24,9 @@
 
         for(i = 0; i < arr.length; i++) {
             out += "<tr><td>" +
-                arr[i].Titel +
+                arr[i].titel +
                 "</td><td>" +
-                arr[i].Semester +
+                arr[i].listID +
                 "</td></tr>";
         }
         out += "</table>";
