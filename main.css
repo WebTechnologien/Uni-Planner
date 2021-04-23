@@ -60,6 +60,7 @@ h1{
 
 #wahlpflicht-container .module-draggable{
     margin-right: 22px;
+
 }
 
 #plan-container .module-draggable {
@@ -96,6 +97,7 @@ h1{
     text-align: left;
     height: 60px;
     pointer-events: auto;
+    width: 10vw;
 }
 
 .module-draggable h1{
