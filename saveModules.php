@@ -4,6 +4,8 @@ header("Content-Type: application/json; charset=UTF-8");
 $obj = json_decode($_POST["semArray"], true);
 
 $conn = new mysqli("localhost", "root", "", "uni-planner");
+mysqli_set_charset($conn,"UTF8");
+
 if ($conn->connect_error) {
     die("Connection failed" . $conn->connect_error);
 }
@@ -23,7 +25,8 @@ for($x = 0; $x < $xlength; $x++) {
 if ($result){
     //ToDo Log or some Feedback
     echo($result);
-}else{
+}
+else{
 	echo(mysqli_error ($conn));
 }
 $conn->close();
