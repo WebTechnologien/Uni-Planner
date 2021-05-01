@@ -1,7 +1,7 @@
 
 function initEventListeners() {
 
-    const semContainers = document.querySelectorAll('.semester-container');
+    const semContainers = document.querySelectorAll('.semester');
     const modules = document.querySelectorAll('.module-draggable');
 
     semContainers.forEach(semContainer => {
@@ -19,6 +19,7 @@ function initEventListeners() {
 
 
     function onDragStart(event) {
+        event.dataTransfer.clearData();
         event.dataTransfer.setData('text/plain', event.target.id);
         modules.forEach(module=>{
             if(event.currentTarget!==module){
@@ -45,6 +46,7 @@ function initEventListeners() {
     }
 
     function onDrop(event) {
+        event.preventDefault();
         const moduleID = event.dataTransfer.getData('text');
         const module = document.getElementById(moduleID);
         let target = event.currentTarget;
@@ -52,12 +54,10 @@ function initEventListeners() {
         if(module!=null){
             target.appendChild(module);
             moveModul(module,target.id)
-
             saveModules();
         }
+        event.currentTarget.classList.remove('dragenter');
 
-        target.classList.remove('dragenter');
-        event.dataTransfer.clearData();
     }
 
     function onDragEnd(event) {

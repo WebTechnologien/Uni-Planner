@@ -6,57 +6,55 @@ var sem;
 function myFunction(response) {
     //JSON-Response des Servers in Arrays aufteilen -> ein Array für jedes Semester
     const arr = JSON.parse(response);
-    sem=[[],[],[],[],[],[],[],[]];
+    sem=[];
+    let semesterCount=arr[arr.length-1].listID*1+1;
+    for (let i = 0; i < semesterCount; i++){
+        sem.push([]);
+    }
+    console.log(semesterCount);
 
     for(let i = 0; i < arr.length; i++) {
-        switch (parseInt(arr[i].listID)){
-            case 1:
-                sem[1].push(arr[i]);
-                break;
-            case 2:
-                sem[2].push(arr[i]);
-                break;
-            case 3:
-                sem[3].push(arr[i]);
-                break;
-            case 4:
-                sem[4].push(arr[i]);
-                break;
-            case 5:
-                sem[5].push(arr[i]);
-                break;
-            case 6:
-                sem[6].push(arr[i]);
-                break;
-            case 7:
-                sem[7].push(arr[i]);
-                break;
-            case 0:
-                sem[0].push(arr[i])
-        }
+        sem[arr[i].listID].push(arr[i]);
+        console.log(i)
     }
 
+    console.log(sem);
     //Dynamischen HTML-Code zusammenbauen
-    let html = '';
-    for(let i = 1; i < sem.length; i++){
-        html+='<div id=' +i+' ';
-        html+='class="semester-container">'+'Semester '+i;
-        for(let j = 0; j < sem[i].length; j++){
-            html+='<div id="'+sem[i][j].modulID+"\"";
-            html+='class="module-draggable" draggable="true">';
-            html+='<h1>'+sem[i][j].titel+'</h1>'+'</div>';
-        }
-        html+='</div>';
-    }
-    document.querySelector('#plan-container').innerHTML=html;
 
-    let html2 = '';
-        for(let i = 0; i < sem[0].length; i++){
-            html2+='<div id="'+sem[0][i].modulID+"\"";
-            html2+='class="module-draggable wahlpflichtmodul" draggable="true">';
-            html2+='<h1>'+sem[0][i].titel+'</h1>'+'</div>';
-        }
-    document.querySelector('.wahlpflicht-flexbox').innerHTML=html2;
+    for (let i = 0; i<sem.length;i++){
+            if (i!==0){
+            let semester = document.createElement("div");
+            semester.id = i;
+            semester.classList.add("semester");
+            semester.innerHTML= '<h1>'+'Semester '+i+'</h1>';
+            document.getElementById("semester-container").appendChild(semester);
+            }
+
+            for (let j = 0; j < sem[i].length; j++) {
+                let modul = document.createElement("div");
+                modul.id = sem[i][j].modulID;
+                if(i!==0){
+                    modul.classList.add("module-draggable");
+                }else{
+                    modul.classList.add("module-draggable", "wahlpflichtmodul");
+                }
+                modul.draggable=true;
+                modul.innerHTML='<h1>'+sem[i][j].titel+'</h1>'+'</div>';
+                document.getElementById(i).appendChild(modul)
+            }
+    }
+    let addSemester = document.createElement("div")
+    addSemester.id = "addSemester";
+    addSemester.classList.add("unselectable");
+    addSemester.innerHTML='<h1>+</h1>';
+    addSemester.addEventListener("click",onAdd)
+    document.getElementById("semester-container").appendChild(addSemester);
+
+    let addModul = document.createElement("div");
+    addModul.id="addWahlpflichtmodul";
+    addModul.classList.add("module-draggable","unselectable");
+    addModul.innerHTML='<h1>+</h1>';
+    document.getElementById(0).appendChild(addModul);
 
     initEventListeners();
 

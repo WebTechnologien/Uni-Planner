@@ -7,20 +7,30 @@
     <script src="fetchModules.js"></script>
     <script src="dragActions.js"></script>
     <script src="saveModules.js"></script>
+    <script src="addSemester.js"></script>
 </head>
 
 <body>
 <nav class="navbar">
     <div id="logo">
-    <img src="img/icons/android-chrome-512x512.png" alt="Logo"></div>
+        <img src="img/icons/android-chrome-512x512.png" alt="Logo"></div>
 </nav>
 
-<div id="plan-container"></div>
+<div id="plan-container">
+    <div id="semester-header" class="headerSemester">
+        <h1>Semester&uumlbersicht</h1>
+    </div>
 
-<div id="wahlpflicht-container">
-    <h1>Wahlpflicht-Module</h1>
-    <div id="0" class="wahlpflicht-flexbox semester-container"></div>
+
+    <div id="semester-container"></div>
+
+    <div id="wahlpflicht-header">
+        <h1>Wahlpflicht-Module</h1>
+    </div>
+    <div id="0" class="wahlpflicht-container semester"></div>
 </div>
+
+
 </body>
 
 <footer><small>&copy; Copyright 2021, Peter Hemmann & Dominic Eckerle</small>
