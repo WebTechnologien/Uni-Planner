@@ -42,20 +42,49 @@ a:hover {
 
 
 #semester-header{
-    text-align: center;
+
     background: white;
     padding: 8px;
     border-radius: 6px 6px 0 0;
     margin-bottom: 6px;
-
+    display: flex;
+    justify-content: center;
+    position: relative;
     box-shadow:
             0 1px 1px rgba(0, 0, 0, 0.11);
 
 }
 
 .headerSemester h1{
+    text-align: center;
     margin: 0;
 }
+
+.SaveButton{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    padding: 0;
+
+    border-top-right-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.EditButton{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    padding: 0;
+
+    border-top-right-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+
 
 #wahlpflicht-header h1{
     margin: 0;
@@ -92,7 +121,7 @@ a:hover {
 
 #addSemester{
     background: white;
-    padding: 265.7px 13.5px;
+    padding: 264px 13.5px;
     margin-left: 8px;
     box-shadow:
             0 1px 1px rgba(0, 0, 0, 0.11);

@@ -1,14 +1,13 @@
 function initEventListeners() {
-
     const semContainers = document.querySelectorAll('.semester');
     const modules = document.querySelectorAll('.module-draggable');
+
 
     semContainers.forEach(semContainer => {
         semContainer.addEventListener('dragover', onDragOver);
         semContainer.addEventListener('dragenter', onDragEnter);
         semContainer.addEventListener('dragleave', onDragLeave)
-        semContainer.addEventListener('drop', onDrop)
-
+        semContainer.addEventListener('drop', onDrop);
     });
 
     modules.forEach(module => {
@@ -39,7 +38,7 @@ function initEventListeners() {
                 event.preventDefault();
                 event.currentTarget.classList.add('dragenter');
             }
-        }else{
+        } else {
             event.preventDefault();
             event.currentTarget.classList.add('dragenter');
         }
@@ -89,6 +88,7 @@ function initEventListeners() {
         event.currentTarget.classList.remove('hide');
     }
 }
+
 
 function moveModul(module, newIndex) {
     let index = getIndexOfModule(module);
