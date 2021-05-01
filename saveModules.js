@@ -4,11 +4,11 @@
 function saveModules(){
 
     dbParam = JSON.stringify(sem);
-    console.log(dbParam);
+
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-            console.log(this.responseText);
+            console.log("ServerResponse:"+this.responseText);
         }
     };
     xmlhttp.open("POST", "saveModules.php", true);

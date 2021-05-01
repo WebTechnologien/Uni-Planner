@@ -11,15 +11,11 @@ function myFunction(response) {
     for (let i = 0; i < semesterCount; i++){
         sem.push([]);
     }
-    console.log(semesterCount);
 
     for(let i = 0; i < arr.length; i++) {
         sem[arr[i].listID].push(arr[i]);
-        console.log(i)
-    }
 
-    console.log(sem);
-    //Dynamischen HTML-Code zusammenbauen
+    }
 
     for (let i = 0; i<sem.length;i++){
             if (i!==0){
@@ -33,7 +29,7 @@ function myFunction(response) {
             for (let j = 0; j < sem[i].length; j++) {
                 let modul = document.createElement("div");
                 modul.id = sem[i][j].modulID;
-                if(i!==0){
+                if(sem[i][j].semester!=0){
                     modul.classList.add("module-draggable");
                 }else{
                     modul.classList.add("module-draggable", "wahlpflichtmodul");
