@@ -24,8 +24,8 @@ function initEventListeners() {
                 module.classList.add('noPointer');
             }
         })
-        let modul = document.getElementById(event.target.id);
-        if (modul.classList.contains("wahlpflichtmodul")) {
+        let module = document.getElementById(event.target.id);
+        if (module.classList.contains("wahlpflichtmodul")) {
             event.dataTransfer.setData('wahlpflichtmodul', '')
         }
         event.currentTarget.classList.add('hide');
@@ -33,7 +33,7 @@ function initEventListeners() {
 
     function onDragOver(event) {
 
-        if (event.currentTarget.id == 0) {
+        if (parseInt(event.currentTarget.id) === 0) {
             if (event.dataTransfer.types.includes("wahlpflichtmodul")) {
                 event.preventDefault();
                 event.currentTarget.classList.add('dragenter');
@@ -46,7 +46,7 @@ function initEventListeners() {
     }
 
     function onDragEnter(event) {
-        if (event.currentTarget.id == 0) {
+        if (parseInt(event.currentTarget.id) === 0) {
             if (event.dataTransfer.types.includes("wahlpflichtmodul")) {
                 event.preventDefault();
             }
@@ -65,16 +65,17 @@ function initEventListeners() {
         const module = document.getElementById(moduleID);
         let target = event.currentTarget;
 
-        if (event.currentTarget.id == 0) {
-            console.log("Target is Wahlpflicht-Area ist es ein Wahlplichtmodul:" + module.classList.contains("wahlpflichtmodul"))
+        if (parseInt(event.currentTarget.id) === 0) {
+            console.log("Target is Wahlpflicht-Area is dragged module a Wahlplichtmodul?:" + module.classList.contains("wahlpflichtmodul"))
             if (module.classList.contains("wahlpflichtmodul")) {
                 target.appendChild(module);
-                moveModul(module, target.id)
+                moveModule(module, target.id)
                 saveModules();
+                refreshAddModuleButton();
             }
         } else if (module != null) {
             target.appendChild(module);
-            moveModul(module, target.id)
+            moveModule(module, target.id)
             saveModules();
         }
         event.currentTarget.classList.remove('dragenter');
@@ -90,7 +91,7 @@ function initEventListeners() {
 }
 
 
-function moveModul(module, newIndex) {
+function moveModule(module, newIndex) {
     let index = getIndexOfModule(module);
     let oldListIndex = index[0];
     let oldPosIndex = index[1];
