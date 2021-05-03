@@ -94,9 +94,8 @@ function loadEditMode() {
     saveBtn.onclick = function () {
         viewMode = true;
         addSemester.remove()
-        addModule.remove();
 
-        //clone plan-container to remove EventListener
+        //clone plan-container to remove EventListeners
         let el = document.getElementById("plan-container");
         let elClone = el.cloneNode(true);
         el.parentNode.replaceChild(elClone, el);
