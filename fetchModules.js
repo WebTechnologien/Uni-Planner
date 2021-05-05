@@ -2,7 +2,7 @@ var sem = [];
 var viewMode;
 
 function myFunction(response) {
-
+    console.log(response);
     const arr = JSON.parse(response);
     let semesterCount = arr[arr.length - 1].listID * 1 + 1;
     for (let i = 0; i < semesterCount; i++) {
@@ -46,7 +46,7 @@ function refreshPlanContainer(firstcall) {
         for (let j = 0; j < sem[i].length; j++) {
             let module = document.createElement("div");
             module.id = sem[i][j].modulID;
-            if (sem[i][j].semester != 0) {
+            if (parseInt(sem[i][j].semester) !== 0) {
                 module.classList.add("module-draggable");
             } else {
                 module.classList.add("module-draggable", "wahlpflichtmodul");
@@ -58,6 +58,7 @@ function refreshPlanContainer(firstcall) {
     }
 
     if (viewMode === true) {
+
         loadViewMode();
     } else {
         loadEditMode();
@@ -68,10 +69,16 @@ function loadViewMode() {
     document.getElementById("saveButton").classList.add("hide");
     editBtn=document.getElementById("editButton");
     editBtn.classList.remove("hide");
-    setModuleDragable(false);
-
+    setModuleDraggable(false);
+    handleModuleModal();
     editBtn.onclick = function () {
         viewMode = false;
+
+        //clone plan-container to remove EventListeners
+        let el = document.getElementById("plan-container");
+        let elClone = el.cloneNode(true);
+        el.parentNode.replaceChild(elClone, el);
+
         loadEditMode();
     }
 }
@@ -88,7 +95,7 @@ function loadEditMode() {
     addSemester.addEventListener("click", onAdd)
     document.getElementById("semester-container").appendChild(addSemester);
     refreshAddModuleButton();
-    setModuleDragable(true);
+    setModuleDraggable(true);
     initEventListeners();
 
     saveBtn.onclick = function () {
@@ -102,11 +109,11 @@ function loadEditMode() {
         el.parentNode.replaceChild(elClone, el);
 
         refreshPlanContainer(false);
-        loadViewMode()
+
     }
 }
 
-function setModuleDragable(flag){
+function setModuleDraggable(flag){
     const modules = document.querySelectorAll('.module-draggable');
     modules.forEach(module => {
         module.draggable = flag;

@@ -9,7 +9,8 @@ if($conn->connect_error){
     die("Connection failed".$conn->connect_error);
 }
 
-$result = $conn->query("SELECT modul.mid, titel, semester,  pID, listID, posID  
+$result = $conn->query("SELECT modul.mid, titel, cp, semester,pflicht, wiSe,prufungsleistung,prfungsvorleistung,inhalte,verantwortung,dozent,  
+                                pID, listID, posID  
                                FROM modul 
                                 INNER JOIN moduls_plan_pos mpp on modul.mID = mpp.mID
                                   ORDER BY listID, posID");
@@ -21,10 +22,17 @@ if ($result) {
         if ($outp != "[") {$outp .= ",";}
 
         $outp .= '{"modulID":"' . $rs["mid"] . '",';
-        $outp .= '"planID":"' . $rs["pID"] . '",';
         $outp .= '"titel":"' . $rs["titel"] . '",';
+        $outp .= '"cp":"' . $rs["cp"] . '",';
+        $outp .= '"semester":"' . $rs["semester"] . '",';
+        $outp .= '"wiSe":"' . $rs["wiSe"] . '",';
+        $outp .= '"verantwortung":"' . $rs["verantwortung"] . '",';
+        $outp .= '"dozent":"' . $rs["dozent"] . '",';
+        $outp .= '"prufungsleistung":"' . $rs["prufungsleistung"] . '",';
+        $outp .= '"prfungsvorleistung":"' . $rs["prfungsvorleistung"] . '",';
+        $outp .= '"planID":"' . $rs["pID"] . '",';
         $outp .= '"listID":"' . $rs["listID"] . '",';
-        $outp .= '"semester":"' . $rs["semester"] . '"}';
+        $outp .= '"posID":"' . $rs["posID"] . '"}';
     }
 
     $outp .= "]";

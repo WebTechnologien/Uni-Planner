@@ -8,6 +8,7 @@
     <script src="dragActions.js"></script>
     <script src="saveModules.js"></script>
     <script src="addSemester.js"></script>
+    <script src="modal.js"></script>
 </head>
 
 <body>
@@ -53,8 +54,16 @@
 
     </div>
 
-
     <div id="semester-container"></div>
+
+    <div id="modal" class="modal" >
+        <div id="modal-header" class="modal-header">
+            <div class="title">&Uumlberschrift</div>
+            <button class="close-button">&times;</button>
+        </div>
+        <div id="modal-body" class="modal-body"></div>
+    </div>
+    <div id="overlay"></div>
 
     <div id="wahlpflicht-header">
         <h1>Wahlpflicht-Module</h1>
