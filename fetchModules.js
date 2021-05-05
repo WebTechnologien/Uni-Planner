@@ -1,10 +1,9 @@
-var sem;
+var sem = [];
 var viewMode;
 
 function myFunction(response) {
 
     const arr = JSON.parse(response);
-    sem = [];
     let semesterCount = arr[arr.length - 1].listID * 1 + 1;
     for (let i = 0; i < semesterCount; i++) {
         sem.push([]);
@@ -52,8 +51,8 @@ function refreshPlanContainer(firstcall) {
             } else {
                 module.classList.add("module-draggable", "wahlpflichtmodul");
             }
-            module.draggable = true;
             module.innerHTML = '<h1>' + sem[i][j].titel + '</h1>' + '</div>';
+
             document.getElementById(i).appendChild(module)
         }
     }
@@ -67,18 +66,21 @@ function refreshPlanContainer(firstcall) {
 
 function loadViewMode() {
     document.getElementById("saveButton").classList.add("hide");
-
-    let editBtn = document.getElementById("editButton");
+    editBtn=document.getElementById("editButton");
     editBtn.classList.remove("hide");
+    setModuleDragable(false);
 
     editBtn.onclick = function () {
         viewMode = false;
-        document.querySelector(".EditButton").classList.add("hide");
         loadEditMode();
     }
 }
 
 function loadEditMode() {
+    document.getElementById("editButton").classList.add("hide");
+    saveBtn=document.getElementById("saveButton");
+    saveBtn.classList.remove("hide");
+
     let addSemester = document.createElement("div")
     addSemester.id = "addSemester";
     addSemester.classList.add("unselectable");
@@ -86,13 +88,12 @@ function loadEditMode() {
     addSemester.addEventListener("click", onAdd)
     document.getElementById("semester-container").appendChild(addSemester);
     refreshAddModuleButton();
-
-    let saveBtn = document.getElementById("saveButton");
-    saveBtn.classList.remove("hide");
+    setModuleDragable(true);
     initEventListeners();
 
     saveBtn.onclick = function () {
         viewMode = true;
+        saveModules();
         addSemester.remove()
 
         //clone plan-container to remove EventListeners
@@ -103,8 +104,13 @@ function loadEditMode() {
         refreshPlanContainer(false);
         loadViewMode()
     }
+}
 
-
+function setModuleDragable(flag){
+    const modules = document.querySelectorAll('.module-draggable');
+    modules.forEach(module => {
+        module.draggable = flag;
+    });
 }
 
 function refreshAddModuleButton() {

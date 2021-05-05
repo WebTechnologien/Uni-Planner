@@ -70,13 +70,13 @@ function initEventListeners() {
             if (module.classList.contains("wahlpflichtmodul")) {
                 target.appendChild(module);
                 moveModule(module, target.id)
-                saveModules();
+
                 refreshAddModuleButton();
             }
         } else if (module != null) {
             target.appendChild(module);
             moveModule(module, target.id)
-            saveModules();
+
         }
         event.currentTarget.classList.remove('dragenter');
 
