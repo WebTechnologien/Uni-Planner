@@ -23,8 +23,14 @@ function handleModuleModal() {
         const modal_title = document.querySelector('.modal-header .title');
         modal_title.innerHTML=module.titel;
 
-        const modal_body = document.querySelector('.modal-body');
-        // modal_body.innerHTML= "Semester: "+module.semester+"<br> Plan: "+module.planID+"<br> Geplant im Semester: "+module.listID+" an Stelle: "+ (module.posID * 1 + 1);
+
+        let modal_body = document.getElementById("modal-body");
+
+        let elClone = modal_body.cloneNode(false);
+        modal_body.parentNode.replaceChild(elClone, modal_body);
+
+        modal_body = document.getElementById("modal-body");
+
 
         let body = document.createElement("table");
         for(var e in module){
@@ -40,15 +46,16 @@ function handleModuleModal() {
                 row.appendChild(d2);
             }
         }
-        modal_body.appendChild(body)
+        modal_body.appendChild(body);
     }
 
     function closeModal() {
         const modal = document.getElementById("modal");
         const modal_body = document.querySelector('.modal-body');
-        modal_body.innerHTML='';
+
         modal.classList.remove('visible');
         overlay.classList.remove('visible');
+
     }
 
 }

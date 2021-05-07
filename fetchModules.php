@@ -26,8 +26,8 @@ if ($result) {
         $outp .= '"cp":"' . $rs["cp"] . '",';
         $outp .= '"semester":"' . $rs["semester"] . '",';
         $outp .= '"wiSe":"' . $rs["wiSe"] . '",';
-        $outp .= '"verantwortung":"' . $rs["verantwortung"] . '",';
-        $outp .= '"dozent":"' . $rs["dozent"] . '",';
+//        $outp .= '"verantwortung":"' . $rs["verantwortung"] . '",';
+//        $outp .= '"dozent":"' . $rs["dozent"] . '",';
         $outp .= '"prufungsleistung":"' . $rs["prufungsleistung"] . '",';
         $outp .= '"prfungsvorleistung":"' . $rs["prfungsvorleistung"] . '",';
         $outp .= '"planID":"' . $rs["pID"] . '",';

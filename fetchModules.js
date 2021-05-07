@@ -2,7 +2,6 @@ var sem = [];
 var viewMode;
 
 function myFunction(response) {
-    console.log(response);
     const arr = JSON.parse(response);
     let semesterCount = arr[arr.length - 1].listID * 1 + 1;
     for (let i = 0; i < semesterCount; i++) {
