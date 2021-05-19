@@ -66,16 +66,18 @@ body {
 }
 
 #username_textfield {
-    font-size: 25px;
-    width: 200px;
+    font-size: 20px;
+    padding: 5px;
+    width: 190px;
     border-radius: 4px;
     margin-bottom: 20px;
     margin-top: 5px;
 }
 
 #password_textfield {
-    font-size: 25px;
-    width: 200px;
+    font-size: 20px;
+    padding: 5px;
+    width: 190px;
     border-radius: 4px;
     margin-bottom: 20px;
     margin-top: 5px;

@@ -1,40 +1,14 @@
 <?php
 session_start();
-$_SESSION["login"] = 0;
-$table_usernames = null;
-$table_passwords = null;
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = new mysqli("localhost", "root", "", "uni-planner");
-    if ($conn->connect_error) {
-        die("Connection failed" . $conn->connect_error);
-    }
-    mysqli_select_db($conn, "uni-planner") or due ("Cannot connect to database");
-    $query = mysqli_query($conn, "Select * from user");
-    while($row = mysqli_fetch_array($query)) {
-        $table_usernames = $row['username'];
-        $table_passwords = $row['pwd'];
-        if ($_POST["loginname"] == $table_usernames && $_POST["loginpasswort"] == $table_passwords) {
-            $_SESSION["login"] = 1;
-        }
-    }
-    if ($_SESSION["login"] != 1) {
-        print '<script>alert("Falscher Benutzname oder Passwort!");</script>';
-        include("login.php");
-        exit;
-    }
-}
-if ($_SESSION["login"] != 1)
-{
-    include("login.php");
-    exit;
+if(!($_SESSION["username"])) {
+    header("Location:login.php");
 }
 ?>
 
 <html lang="de">
 <head>
     <Title>Uni-Planner</Title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="shortcut icon" type="image/x-icon" href="img/icons/android-chrome-512x512.png">
     <link rel="stylesheet" href="main.css">
     <script src="fetchModules.js"></script>
@@ -48,6 +22,21 @@ if ($_SESSION["login"] != 1)
 <nav class="navbar">
     <div id="logo">
         <img src="img/icons/android-chrome-512x512.png" alt="Logo"></div>
+    <div class="dropdown">
+        <button class="dropbtn"><?php echo $_SESSION["username"];?></button>
+        <div class="dropdown-content">
+            <div id="plan_div">
+                <i class="fa fa-layer-group"></i>
+                <a id="plan1" href="#">Plan 1</a>
+<!--                <i class="fa fa-plus"></i>-->
+                <a id="addplan" href="#">Plan hinzufügen</a>
+            </div>
+            <div id="logout_div">
+                <i class="fa fa-sign-out-alt"></i>
+                <a id="logout" href="logout.php">Logout</a>
+            </div>
+        </div>
+    </div>
 </nav>
 
 <div id="plan-container">
