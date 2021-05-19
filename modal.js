@@ -42,7 +42,9 @@ function handleModuleModal() {
                 row.appendChild(d);
 
                 let d2 = row.insertCell();
-                d2.appendChild(document.createTextNode(module[e]));
+                let data = document.createElement("div");
+                data.innerHTML=module[e];
+                d2.appendChild(data);
                 row.appendChild(d2);
             }
         }
@@ -51,7 +53,7 @@ function handleModuleModal() {
 
     function closeModal() {
         const modal = document.getElementById("modal");
-        const modal_body = document.querySelector('.modal-body');
+        
 
         modal.classList.remove('visible');
         overlay.classList.remove('visible');

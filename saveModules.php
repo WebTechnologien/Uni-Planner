@@ -3,6 +3,8 @@ header("Content-Type: application/json; charset=UTF-8");
 
 $obj = json_decode($_POST["semArray"], true);
 
+echo $obj;
+
 $conn = new mysqli("localhost", "root", "", "uni-planner");
 mysqli_set_charset($conn,"UTF8");
 

@@ -24,6 +24,7 @@
             <br>
             <button id="button_register" onclick="document.location='register.php'">Registrieren</button>
         </div>
+        <footer><small>&copy; Copyright 2021, Peter Hemmann & Dominic Eckerle</small></footer>
     </div>
     <div id="right_div">
         <div id="text_div">
@@ -32,5 +33,4 @@
     </div>
 </div>
 </body>
-<footer><small>&copy; Copyright 2021, Peter Hemmann & Dominic Eckerle</small></footer>
 </html>

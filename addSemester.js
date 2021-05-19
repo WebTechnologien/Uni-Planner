@@ -10,6 +10,6 @@ function onAdd(){
     sem.push([]);
 
     document.body.scrollLeft+=101;
-    console.log(document.body.scrollLeft+" "+window.outerWidth+""+document.body.clientWidth);
+    console.log(document.body.scrollLeft+" "+window.outerWidth+" "+document.body.clientWidth);
     initEventListeners();
 }

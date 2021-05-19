@@ -2,7 +2,14 @@ var sem = [];
 var viewMode;
 
 function myFunction(response) {
-    const arr = JSON.parse(response);
+
+    x = response;
+    // x = x.replaceAll(/\n/g, "<br />").replaceAll(/\r/g, "").replaceAll(/\t/g, "").replaceAll("Inhalte<br />","");
+    //
+    // x = x.substr(0, x.indexOf(']')+1)
+
+    const arr = JSON.parse(x);
+
     let semesterCount = arr[arr.length - 1].listID * 1 + 1;
     for (let i = 0; i < semesterCount; i++) {
         sem.push([]);
@@ -66,7 +73,7 @@ function refreshPlanContainer(firstcall) {
 
 function loadViewMode() {
     document.getElementById("saveButton").classList.add("hide");
-    editBtn=document.getElementById("editButton");
+    editBtn = document.getElementById("editButton");
     editBtn.classList.remove("hide");
     setModuleDraggable(false);
     handleModuleModal();
@@ -84,7 +91,7 @@ function loadViewMode() {
 
 function loadEditMode() {
     document.getElementById("editButton").classList.add("hide");
-    saveBtn=document.getElementById("saveButton");
+    saveBtn = document.getElementById("saveButton");
     saveBtn.classList.remove("hide");
 
     let addSemester = document.createElement("div")
@@ -112,7 +119,7 @@ function loadEditMode() {
     }
 }
 
-function setModuleDraggable(flag){
+function setModuleDraggable(flag) {
     const modules = document.querySelectorAll('.module-draggable');
     modules.forEach(module => {
         module.draggable = flag;

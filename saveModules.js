@@ -4,6 +4,7 @@
 function saveModules(){
 
     let dbParam = JSON.stringify(sem);
+    dbParam = dbParam.replace(/[<]br[^>]*[>]/gi,"");
 
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -11,6 +12,7 @@ function saveModules(){
             console.log("ServerResponse:"+this.responseText);
         }
     };
+    console.log(dbParam)
     xmlhttp.open("POST", "saveModules.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send("semArray=" + dbParam);

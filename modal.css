@@ -1,0 +1,97 @@
+.modal{
+    background-color: white;
+    position: fixed;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+
+    width: 800px;
+    max-width: 80%;
+    max-height: 80%;
+
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+
+    border-radius: 8px;
+}
+
+.modal.visible{
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 15px;
+    border-bottom: 1px solid #888;
+}
+
+.modal-header .close-button{
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 10px 15px;
+    overflow-y: scroll;
+    max-height: 666px;
+}
+
+
+.modal-body table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.modal-body td{
+    padding: 5px 0 5px 0;
+}
+
+.modal-body td:first-child{
+    padding: 5px 10px 5px 0;
+}
+
+.modal-body tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+#overlay{
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    pointer-events: none;
+
+}
+
+#overlay.visible{
+    opacity: 1;
+    pointer-events: all;
+}
+.modal-body::-webkit-scrollbar {
+    width: 10px;
+}
+
+
+
+/* Handle */
+.modal-body::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 6px;
+    padding: 1px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
