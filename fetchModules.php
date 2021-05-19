@@ -9,10 +9,23 @@ if($conn->connect_error){
     die("Connection failed".$conn->connect_error);
 }
 
+//$stmt = $conn->prepare("SELECT modul.mid, titel, cp, semester,pflicht, wiSe,prufungsleistung,prfungsvorleistung,inhalte,verantwortung,dozent,
+//                                mpp.pID, listID, posID
+//                               FROM modul
+//                                INNER JOIN moduls_plan_pos mpp on modul.mID = mpp.mID
+//                                INNER JOIN plan p on mpp.pID = p.pID AND p.uid = mpp.uid
+//                                WHERE p.uid = ? AND p.pID = ?
+//                                  ORDER BY listID, posID");
+//$stmt->bind_param("ii", $_SESSION["uid"], $_GET['p']);
+//$stmt->execute();
+//$result = $stmt->get_result();
+
 $result = $conn->query("SELECT modul.mid, titel, cp, semester,pflicht, wiSe,prufungsleistung,prfungsvorleistung,inhalte,verantwortung,dozent,  
-                                pID, listID, posID  
+                                mpp.pID, listID, posID  
                                FROM modul 
                                 INNER JOIN moduls_plan_pos mpp on modul.mID = mpp.mID
+                                INNER JOIN plan p on mpp.pID = p.pID AND p.uid = mpp.uid
+                                WHERE p.uid = 30 AND p.pID = 1
                                   ORDER BY listID, posID");
 
 if ($result) {

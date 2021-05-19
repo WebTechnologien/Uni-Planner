@@ -65,10 +65,20 @@
     border-top: 2px solid darkslategrey;
 }
 
-#addplan {
+#plan2 {
     border-left: 2px solid darkslategrey;
     border-right: 2px solid darkslategrey;
 }
+
+#plan3 {
+    border-left: 2px solid darkslategrey;
+    border-right: 2px solid darkslategrey;
+}
+
+/*#addplan {*/
+/*    border-left: 2px solid darkslategrey;*/
+/*    border-right: 2px solid darkslategrey;*/
+/*}*/
 
 #logout {
     border: 2px solid darkslategrey;

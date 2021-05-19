@@ -17,7 +17,7 @@ for($x = 0; $x < $xlength; $x++) {
     for ($y = 0; $y < $ylength; $y++) {
         $mid = htmlspecialchars($obj[$x][$y]['modulID']);
         $result = $conn->query("REPLACE INTO moduls_plan_pos(mID, pID, listID, posID) 
-        VALUES('$mid',1,$x,$y);");
+        VALUES('$mid',0,$x,$y);");
     }
 }
 

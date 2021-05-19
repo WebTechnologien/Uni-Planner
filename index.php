@@ -8,7 +8,6 @@ if(!($_SESSION["username"])) {
 <html lang="de">
 <head>
     <Title>Uni-Planner</Title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="shortcut icon" type="image/x-icon" href="img/icons/android-chrome-512x512.png">
     <link rel="stylesheet" href="main.css">
     <script src="fetchModules.js"></script>
@@ -26,13 +25,12 @@ if(!($_SESSION["username"])) {
         <button class="dropbtn"><?php echo $_SESSION["username"];?></button>
         <div class="dropdown-content">
             <div id="plan_div">
-                <i class="fa fa-layer-group"></i>
-                <a id="plan1" href="#">Plan 1</a>
-<!--                <i class="fa fa-plus"></i>-->
-                <a id="addplan" href="#">Plan hinzufügen</a>
+                <a id="plan1">Plan 1</a>
+                <a id="plan2">Plan 2</a>
+                <a id="plan3">Plan 3</a>
+                <!-- <a id="addplan" href="#">Plan hinzufügen</a>-->
             </div>
             <div id="logout_div">
-                <i class="fa fa-sign-out-alt"></i>
                 <a id="logout" href="logout.php">Logout</a>
             </div>
         </div>

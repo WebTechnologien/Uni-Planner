@@ -3,6 +3,7 @@ var viewMode;
 
 function myFunction(response) {
     const arr = JSON.parse(response);
+    console.log(response);
     let semesterCount = arr[arr.length - 1].listID * 1 + 1;
     for (let i = 0; i < semesterCount; i++) {
         sem.push([]);
@@ -130,12 +131,4 @@ function refreshAddModuleButton() {
     document.getElementById(0).appendChild(addModule);
 }
 
-xmlhttp = new XMLHttpRequest();
 
-xmlhttp.onreadystatechange = function () {
-    if (this.readyState === 4 && this.status === 200) {
-        myFunction(this.responseText);
-    }
-}
-xmlhttp.open("GET", "fetchModules.php", true);
-xmlhttp.send();
