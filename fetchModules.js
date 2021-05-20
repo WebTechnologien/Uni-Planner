@@ -34,7 +34,7 @@ window.onload = function(){
 };
 
 function initSemArray(response) {
-    console.log(response);
+
     x = response;
     x = x.replaceAll(/\n/g, "<br />").replaceAll(/\r/g, "").replaceAll(/\t/g, "").replaceAll("Inhalte<br />","");
     x = x.substr(0, x.indexOf(']')+1)
@@ -50,7 +50,7 @@ function initSemArray(response) {
         sem[arr[i].listID].push(arr[i]);
 
     }
-    console.log(sem)
+
     viewMode = true
     refreshPlanContainer()
 
@@ -59,7 +59,7 @@ function initSemArray(response) {
 function refreshPlanContainer() {
 
     if (default_loaded) {
-        //create empty semester and wahlpflicht container to refill them from sem-array
+        //create empty semester-container and wahlpflicht-container to refill them from sem-array
         let node = document.getElementById("semester-container");
         let cNode = node.cloneNode(false);
         node.parentNode.replaceChild(cNode, node);
@@ -69,8 +69,8 @@ function refreshPlanContainer() {
         node2.parentNode.replaceChild(cNode2, node2);
 
         //filter empty semesters from array
-        sem = sem.filter(function (el) {
-            return el.length !== 0;
+        sem = sem.filter(function (el,index) {
+            return (el.length !== 0 || index===0 );
         });
     }
 
