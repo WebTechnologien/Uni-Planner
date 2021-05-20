@@ -20,16 +20,18 @@ if($conn->connect_error){
 //$stmt->execute();
 //$result = $stmt->get_result();
 
+session_start();
+$uid= htmlspecialchars($_SESSION["uid"]);
+$pID = htmlspecialchars($_GET['p']);
+
+//echo("fetching plan: ".$pID." with uid: ".$uid);
 $result = $conn->query("SELECT modul.mid, titel, cp, semester,pflicht, wiSe,prufungsleistung,prfungsvorleistung,inhalte,verantwortung,dozent,  
                                 mpp.pID, listID, posID  
                                FROM modul 
                                 INNER JOIN moduls_plan_pos mpp on modul.mID = mpp.mID
                                 INNER JOIN plan p on mpp.pID = p.pID AND p.uid = mpp.uid
-                                WHERE p.uid = 30 AND p.pID = 1
+                                WHERE p.uid = $uid AND p.pID = $pID
                                   ORDER BY listID, posID");
-
-
-//str_replace(chr(149),  "&#8226;",$rs["inhalte"])
 
 if ($result) {
     $outp = "[";
@@ -42,12 +44,11 @@ if ($result) {
         $outp .= '"Creditpoints":"' . $rs["cp"] . '",';
         $outp .= '"semester":"' . $rs["semester"] . '",';
         $outp .= '"WiSe":"' . $rs["wiSe"] . '",';
-//        $contstr  = $rs["inhalte"];
-//        $contstr = str_replace("•",  " ", $contstr); //remove bullet
-
-//        $outp .= '"Inhalte":"' . $contstr . '",';
-        $outp .= '"verantwortung":"' . $rs["verantwortung"] . '",';
-        $outp .= '"dozent":"' . $rs["dozent"] . '",';
+        $contstr  = $rs["inhalte"];
+        $contstr = str_replace("•",  " ", $contstr); //remove bullet
+        $outp .= '"Inhalte":"' . $contstr . '",';
+//        $outp .= '"verantwortung":"' . $rs["verantwortung"] . '",';
+//        $outp .= '"dozent":"' . $rs["dozent"] . '",';
         $outp .= '"Prüfungsleistung":"' . $rs["prufungsleistung"] . '",';
         $outp .= '"Prfüngsvorleistung":"' . $rs["prfungsvorleistung"] . '",';
         $outp .= '"planID":"' . $rs["pID"] . '",';

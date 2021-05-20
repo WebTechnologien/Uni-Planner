@@ -1,12 +1,43 @@
 var sem = [];
 var viewMode;
+var planID;
 
-function myFunction(response) {
+//default request
+request(1);
+const default_loaded=true;
 
+function request(planid) {
+    sem=[];
+    planID=planid;
+
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            console.log("Loading Plan: "+planid);
+            initSemArray(this.responseText);
+        }
+    }
+    xmlhttp.open("GET", "fetchModules.php?p="+planid, true);
+    xmlhttp.send();
+}
+
+window.onload = function(){
+    document.getElementById("plan1").onclick = function (){
+        request(1);
+    }
+    document.getElementById("plan2").onclick = function (){
+        request(2);
+    }
+    document.getElementById("plan3").onclick = function (){
+        request(3);
+    }
+};
+
+function initSemArray(response) {
+    console.log(response);
     x = response;
-    // x = x.replaceAll(/\n/g, "<br />").replaceAll(/\r/g, "").replaceAll(/\t/g, "").replaceAll("Inhalte<br />","");
-    //
-    // x = x.substr(0, x.indexOf(']')+1)
+    x = x.replaceAll(/\n/g, "<br />").replaceAll(/\r/g, "").replaceAll(/\t/g, "").replaceAll("Inhalte<br />","");
+    x = x.substr(0, x.indexOf(']')+1)
 
     const arr = JSON.parse(x);
 
@@ -19,13 +50,15 @@ function myFunction(response) {
         sem[arr[i].listID].push(arr[i]);
 
     }
+    console.log(sem)
     viewMode = true
-    refreshPlanContainer(true)
+    refreshPlanContainer()
+
 }
 
-function refreshPlanContainer(firstcall) {
+function refreshPlanContainer() {
 
-    if (!firstcall) {
+    if (default_loaded) {
         //create empty semester and wahlpflicht container to refill them from sem-array
         let node = document.getElementById("semester-container");
         let cNode = node.cloneNode(false);
@@ -40,6 +73,8 @@ function refreshPlanContainer(firstcall) {
             return el.length !== 0;
         });
     }
+
+
     for (let i = 0; i < sem.length; i++) {
         if (i !== 0) {
             let semester = document.createElement("div");
@@ -106,13 +141,11 @@ function loadEditMode() {
 
     saveBtn.onclick = function () {
         viewMode = true;
-        saveModules();
+        saveModules(planID);
         addSemester.remove()
 
         //clone plan-container to remove EventListeners
-        let el = document.getElementById("plan-container");
-        let elClone = el.cloneNode(true);
-        el.parentNode.replaceChild(elClone, el);
+
 
         refreshPlanContainer(false);
 
@@ -137,12 +170,4 @@ function refreshAddModuleButton() {
     document.getElementById(0).appendChild(addModule);
 }
 
-xmlhttp = new XMLHttpRequest();
 
-xmlhttp.onreadystatechange = function () {
-    if (this.readyState === 4 && this.status === 200) {
-        myFunction(this.responseText);
-    }
-}
-xmlhttp.open("GET", "fetchModules.php", true);
-xmlhttp.send();

@@ -1,7 +1,7 @@
 //ToDo saving Modules to modul_plan_pos
 
 
-function saveModules(){
+function saveModules(planID){
 
     let dbParam = JSON.stringify(sem);
     dbParam = dbParam.replace(/[<]br[^>]*[>]/gi,"");
@@ -12,9 +12,9 @@ function saveModules(){
             console.log("ServerResponse:"+this.responseText);
         }
     };
-    console.log(dbParam)
+
     xmlhttp.open("POST", "saveModules.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlhttp.send("semArray=" + dbParam);
+    xmlhttp.send('semArray=' + dbParam+ '&planID='+planID);
 
 }
