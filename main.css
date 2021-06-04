@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
 
 .navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background: white;
     box-shadow:  0 2px 4px rgba(0, 0, 0, 0.08);
     max-height: 50px;
@@ -7,7 +11,8 @@
     top: 0;
     right: 0;
     left: 0;
-    z-index: 1030;
+    z-index: 10;
+    font-family: "Segoe UI"
 }
 
 #logo img{
@@ -15,59 +20,162 @@
     height: 50px;
 }
 
+.dropbtn {
+    background-color: white;
+    color: darkslategrey;
+    padding: 5px;
+    font-size: 20px;
+    border: none;
+    margin: 12px;
+    width: 200px;
+    text-align: center;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 220px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 6px;
+
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+#plan1 {
+    border-radius: 6px 6px 0 0;
+    border-left: 2px solid darkslategrey;
+    border-right: 2px solid darkslategrey;
+    border-top: 2px solid darkslategrey;
+}
+
+#plan2 {
+    border-left: 2px solid darkslategrey;
+    border-right: 2px solid darkslategrey;
+}
+
+#plan3 {
+    border-left: 2px solid darkslategrey;
+    border-right: 2px solid darkslategrey;
+}
+
+/*#addplan {*/
+/*    border-left: 2px solid darkslategrey;*/
+/*    border-right: 2px solid darkslategrey;*/
+/*}*/
+
+#logout {
+    border: 2px solid darkslategrey;
+    border-radius: 0 0 6px 6px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: whitesmoke;
+}
+
 body {
     background-color: #F5F5F5;
     position: relative;
     font-family: sans-serif;
-    padding-top: 70px;
-
-    margin-left: 5%;
-    margin-right: 5%;
+    padding: 70px 0 0 0;
 }
 
 h1{
     font-weight: bold;
     font-size: 20px;
 }
-
-#plan-container{
-    color: black;
-    display: flex;
-    font-weight: bold;
+a:hover {
+    cursor: pointer;
 }
 
-#wahlpflicht-container{
-    background-color: white;
-    text-align: center;
-
-    padding: 10px;
-    border-radius: 4px;
-    margin-top: 20px;
-    margin-left: 8px;
-
+#plan-container{
+    display: table;
+    width:50%; margin:0 auto;
+    border-radius: 6px 6px 6px 6px;
     box-shadow:
-            0 1px 1px rgba(0, 0, 0, 0.11),
-            0 4px 4px rgba(0, 0, 0, 0.11),
             0 8px 16px rgba(0, 0, 0, 0.11);
 }
 
-#wahlpflicht-container .wahlpflicht-flexbox{
+
+#semester-header{
+
+    background: white;
+    padding: 8px;
+    border-radius: 6px 6px 0 0;
+    margin-bottom: 6px;
     display: flex;
-    flex-direction: row;
-    box-shadow: none;
-    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    box-shadow:
+            0 1px 1px rgba(0, 0, 0, 0.11);
+
 }
 
-#wahlpflicht-container .module-draggable{
-    margin-right: 22px;
+.headerSemester h1{
+    text-align: center;
+    margin: 0;
 }
 
-#plan-container .module-draggable {
-    margin-right: 0;
+.SaveButton{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    padding: 0;
+
+    border-top-right-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.EditButton{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    padding: 0;
+
+    border-top-right-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+
 }
 
 
-.semester-container {
+#wahlpflicht-header h1{
+    margin: 0;
+}
+
+#semester-container{
+    display: flex;
+}
+
+.semester h1{
+    font-weight: bold;
+    font-size: medium;
+}
+
+#semester-container .semester{
     background-color: white;
     text-align: center;
 
@@ -75,45 +183,97 @@ h1{
     flex-grow: 1;
 
     padding: 10px;
-    border-radius: 4px;
+    border-radius: 0;
     margin-left: 8px;
 
+
     box-shadow:
-            0 1px 1px rgba(0, 0, 0, 0.11),
-            0 4px 4px rgba(0, 0, 0, 0.11);
-            /*0 8px 16px rgba(0, 0, 0, 0.11);*/
+            0 1px 1px rgba(0, 0, 0, 0.11)
+
 }
 
+#semester-container .semester:first-child{
+    margin-left: 0;
+}
+
+#addSemester{
+    background: white;
+    padding: 264px 13.5px;
+    margin-left: 8px;
+    box-shadow:
+            0 1px 1px rgba(0, 0, 0, 0.11);
+    cursor: default;
+}
+#addSemester h1{
+    margin: 0;
+}
+
+#addSemester:hover {
+    background: #e0e0e0;
+}
+
+#addWahlpflichtmodul:hover {
+    background: #e0e0e0;
+}
+
+#wahlpflicht-header{
+    background-color: white;
+    text-align: center;
+
+    padding: 8px;
+    margin: 8px 0 0 0;
+}
+
+.wahlpflicht-container{
+    background: white;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    border-radius: 0 0 6px 6px;
+    padding: 10px;
+
+    box-shadow: none;
+}
+
+.wahlpflicht-container .module-draggable{
+    margin-right: 1.5vw;
+}
+
+#addWahlpflichtmodul {
+    text-align: center;
+    line-height: 2.5;
+}
 
 .module-draggable {
     background-color: white;
+
     border: 1px solid darkgray;
     border-radius: 2px;
     margin-bottom: 10px;
     margin-top: 10px;
     padding: 5px;
+
     font-weight: normal;
     text-align: left;
+
     height: 60px;
+    width: 10.5vw;
+
     pointer-events: auto;
 }
 
+.module-draggable:hover{
+    box-shadow: 0 1px 12px 0 rgba(0,0,0,.3)
+}
+
 .module-draggable h1{
-    font-size: 0.8vw;
+    font-size: 0.75vw;
     word-break: break-word;
-}
+    font-family: 'Roboto', sans-serif;
 
-.dragenter{
-    background-color: #e0e0e0;
-}
 
-.hide {
-    transition: 0.01s;
-    transform: translateX(-9999px);
-}
-
-.noPointer{
-    pointer-events: none;
 }
 
 body::after {
@@ -130,5 +290,33 @@ footer {
     text-align: center;
 }
 
+
+#plan-container #semester-container .module-draggable {
+    margin-right: 0;
+}
+
+#plan-container .dragenter{
+    background-color: #e0e0e0;
+}
+
+
+
+
+.hide {
+    transition: 0.001s;
+    transform: translate(-9999px);
+}
+
+.noPointer{
+    pointer-events: none;
+}
+
+*.unselectable,  h1 {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 

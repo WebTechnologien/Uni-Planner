@@ -1,3 +1,15 @@
+.inputWithIcon {
+    position: relative;
+}
+
+.inputWithIcon i {
+    position: absolute;
+    right: 20px;
+    top: 4px;
+    padding: 9px 8px;
+    transition: 0.3s;
+}
+
 h1{
     font-weight: bold;
     font-size: 20px;
@@ -75,24 +87,27 @@ body {
 }
 
 #username_textfield {
-    font-size: 25px;
-    width: 200px;
+    font-size: 20px;
+    padding: 5px;
+    width: 190px;
     border-radius: 4px;
     margin-bottom: 20px;
     margin-top: 5px;
 }
 
 #password1_textfield {
-    font-size: 25px;
-    width: 200px;
+    font-size: 20px;
+    padding: 5px 20px 5px 5px;
+    width: 175px;
     border-radius: 4px;
     margin-bottom: 20px;
     margin-top: 5px;
 }
 
 #password2_textfield {
-    font-size: 25px;
-    width: 200px;
+    font-size: 20px;
+    padding: 5px 20px 5px 5px;
+    width: 175px;
     border-radius: 4px;
     margin-bottom: 20px;
     margin-top: 5px;
