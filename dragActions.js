@@ -70,7 +70,7 @@ function initEventListeners() {
             if (module.classList.contains("wahlpflichtmodul")) {
                 target.appendChild(module);
                 moveModule(module, target.id)
-                refreshAddModuleButton();
+
             }
         } else if (module != null) {
             target.appendChild(module);

@@ -16,7 +16,8 @@ function handleModuleModal() {
         const modal = document.getElementById("modal");
         modal.classList.add('visible');
         overlay.classList.add('visible');
-
+        document.body.style.overflow = "hidden";
+        document.body.style.height = "100%"; //
         module_i = getIndexOfModule(event.currentTarget);
         module = sem[module_i[0]][module_i[1]];
 
@@ -53,8 +54,9 @@ function handleModuleModal() {
 
     function closeModal() {
         const modal = document.getElementById("modal");
-        
 
+        document.body.style.overflow = "auto"; // ADD THIS LINE
+        document.body.style.height = "auto";  // ADD THIS LINE
         modal.classList.remove('visible');
         overlay.classList.remove('visible');
 

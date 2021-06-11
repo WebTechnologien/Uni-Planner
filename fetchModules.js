@@ -4,7 +4,8 @@ var planID;
 
 //default request
 request(1);
-const default_loaded=true;
+viewMode=true;
+
 
 function request(planid) {
     sem=[];
@@ -36,8 +37,9 @@ window.onload = function(){
 function initSemArray(response) {
 
     x = response;
+
     x = x.replaceAll(/\n/g, "<br />").replaceAll(/\r/g, "").replaceAll(/\t/g, "").replaceAll("Inhalte<br />","");
-    x = x.substr(0, x.indexOf(']')+1)
+    x = x.substr(0, x.indexOf(']')+1);
 
     const arr = JSON.parse(x);
 
@@ -51,14 +53,12 @@ function initSemArray(response) {
 
     }
 
-    viewMode = true
-    refreshPlanContainer()
+    refreshPlanContainer();
 
 }
 
 function refreshPlanContainer() {
 
-    if (default_loaded) {
         //create empty semester-container and wahlpflicht-container to refill them from sem-array
         let node = document.getElementById("semester-container");
         let cNode = node.cloneNode(false);
@@ -68,12 +68,23 @@ function refreshPlanContainer() {
         let cNode2 = node2.cloneNode(false);
         node2.parentNode.replaceChild(cNode2, node2);
 
+        let lastindex, index=0;
+
+        while(index<sem.length){
+
+            if(sem[index].length!==0){
+                lastindex=index;
+            }
+            index++;
+        }
+
         //filter empty semesters from array
         sem = sem.filter(function (el,index) {
-            return (el.length !== 0 || index===0 );
+            return (index <=lastindex|| index===0 );
         });
-    }
 
+    console.log(document.querySelector("h1").innerHTML);
+    document.querySelector("h1").innerHTML="Semesterplan "+planID
 
     for (let i = 0; i < sem.length; i++) {
         if (i !== 0) {
@@ -99,7 +110,6 @@ function refreshPlanContainer() {
     }
 
     if (viewMode === true) {
-
         loadViewMode();
     } else {
         loadEditMode();
@@ -108,6 +118,7 @@ function refreshPlanContainer() {
 
 function loadViewMode() {
     document.getElementById("saveButton").classList.add("hide");
+    document.getElementById("resetButton").classList.add("hide");
     editBtn = document.getElementById("editButton");
     editBtn.classList.remove("hide");
     setModuleDraggable(false);
@@ -126,28 +137,34 @@ function loadViewMode() {
 
 function loadEditMode() {
     document.getElementById("editButton").classList.add("hide");
-    saveBtn = document.getElementById("saveButton");
-    saveBtn.classList.remove("hide");
 
+    // Change to not destroy and create again
     let addSemester = document.createElement("div")
     addSemester.id = "addSemester";
     addSemester.classList.add("unselectable");
     addSemester.innerHTML = '<h1>+</h1>';
     addSemester.addEventListener("click", onAdd)
     document.getElementById("semester-container").appendChild(addSemester);
-    refreshAddModuleButton();
+
     setModuleDraggable(true);
     initEventListeners();
 
+    resetButton=document.getElementById("resetButton");
+    resetButton.classList.remove("hide");
+    resetButton.onclick = function (){
+        resetModules(planID);
+        request(planID);
+
+    }
+
+
+    saveBtn = document.getElementById("saveButton");
+    saveBtn.classList.remove("hide");
     saveBtn.onclick = function () {
         viewMode = true;
         saveModules(planID);
         addSemester.remove()
-
-        //clone plan-container to remove EventListeners
-
-
-        refreshPlanContainer(false);
+        refreshPlanContainer();
 
     }
 }
@@ -159,15 +176,20 @@ function setModuleDraggable(flag) {
     });
 }
 
-function refreshAddModuleButton() {
-    if (document.getElementById("addWahlpflichtmodul") != null) {
-        document.getElementById("addWahlpflichtmodul").remove();
-    }
-    let addModule = document.createElement("div");
-    addModule.id = "addWahlpflichtmodul";
-    addModule.classList.add("module-draggable", "unselectable");
-    addModule.innerHTML = '<h1>+</h1>';
-    document.getElementById(0).appendChild(addModule);
+function resetModules(planID){
+
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            console.log("ServerResponse:"+this.responseText);
+        }
+    };
+
+    xmlhttp.open("POST", "reset.php", true);
+    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlhttp.send('&planID='+planID);
+
 }
+
 
 

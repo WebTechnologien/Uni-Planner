@@ -34,12 +34,12 @@ if ($result) {
         $outp .= '"semester":"' . $rs["semester"] . '",';
         $outp .= '"WiSe":"' . $rs["wiSe"] . '",';
         $contstr  = $rs["inhalte"];
-        $contstr = str_replace("•",  " ", $contstr); //remove bullet
+
         $outp .= '"Inhalte":"' . $contstr . '",';
 //        $outp .= '"verantwortung":"' . $rs["verantwortung"] . '",';
 //        $outp .= '"dozent":"' . $rs["dozent"] . '",';
         $outp .= '"Prüfungsleistung":"' . $rs["prufungsleistung"] . '",';
-        $outp .= '"Prfüngsvorleistung":"' . $rs["prfungsvorleistung"] . '",';
+        $outp .= '"Prüfungsvorleistung":"' . $rs["prfungsvorleistung"] . '",';
         $outp .= '"planID":"' . $rs["pID"] . '",';
         $outp .= '"listID":"' . $rs["listID"] . '",';
         $outp .= '"posID":"' . $rs["posID"] . '"}';

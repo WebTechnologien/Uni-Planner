@@ -9,7 +9,7 @@ function onAdd(){
     semcontainer.insertBefore(newSemester,document.getElementById("addSemester"));
     sem.push([]);
 
-    document.body.scrollLeft+=101;
-    console.log(document.body.scrollLeft+" "+window.outerWidth+" "+document.body.clientWidth);
+    document.documentElement.scrollLeft +=240;
+    console.log(document.documentElement.scrollLeft+" "+window.outerWidth+" "+document.body.clientWidth);
     initEventListeners();
 }

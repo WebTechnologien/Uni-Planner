@@ -1,5 +1,3 @@
-//ToDo saving Modules to modul_plan_pos
-
 
 function saveModules(planID){
 
