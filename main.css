@@ -12,7 +12,7 @@
     right: 0;
     left: 0;
     z-index: 10;
-    font-family: "Segoe UI", sans-serif
+    font-family: "Segoe UI"
 }
 
 #logo img{
@@ -20,26 +20,22 @@
     height: 50px;
 }
 
-.dropbtn:after{
-    margin-left: 5px;
-    content: "▼";
-    font-size: 15px;
-}
-
 .dropbtn {
-
     background-color: white;
     color: rgb(49, 130, 126);
-    padding: 5px;
+    padding: 5px 10px 5px 40px;
     font-size: 20px;
     border: none;
     margin: 12px;
     width: 200px;
     text-align: center;
+    background-image: url("img/icons/Avatar.png");
+    background-position: 10px;
+    background-repeat: no-repeat;
+    background-size:20px;
 }
 
 .dropdown {
-
     position: relative;
     display: inline-block;
 }
@@ -48,8 +44,8 @@
     display: none;
     position: absolute;
     background-color: white;
-    min-width: 220px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    min-width: 180px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     border-radius: 6px;
 
@@ -106,7 +102,6 @@ body {
     position: relative;
     font-family: sans-serif;
     padding: 70px 0 0 0;
-
 }
 
 h1{
@@ -145,55 +140,31 @@ a:hover {
     margin: 0;
 }
 
-.left-button{
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    height: 39px;
-    padding: 0 15px 0 10px;
-    border-radius: 6px 0 0 0;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    color: white;
-    font-size: 16px;
-
-    cursor: pointer;
-    border: none;
-    outline: none;
-    background-color: rgba(49, 130, 126, 0.70);
-}
-
-.right-button{
+.SaveButton{
     position: absolute;
     top: 0;
     right: 0;
 
-    height: 39px;
-    padding: 0 15px 0 10px;
-    border-radius: 0 6px 0 0;
+    padding: 0;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    color: white;
+    border-top-right-radius: 6px;
     font-size: 16px;
-
     cursor: pointer;
-    border: none;
-    outline: none;
-    background-color: #31827E;
 }
 
-.right-button img, .left-button img{
-    padding-right: 10px;
-    width: 20px;
-    height: 20px;
+.EditButton{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    padding: 0;
+
+    border-top-right-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+
 }
+
 
 #wahlpflicht-header h1{
     margin: 0;
@@ -271,7 +242,7 @@ a:hover {
 }
 
 .wahlpflicht-container .module-draggable{
-    margin-left: 1.1vw;
+    margin-right: 1.5vw;
 }
 
 #addWahlpflichtmodul {
@@ -302,7 +273,7 @@ a:hover {
 }
 
 .module-draggable h1{
-    font-size: 0.65vw;
+    font-size: 0.75vw;
     word-break: break-word;
     font-family: 'Roboto', sans-serif;
 

@@ -1,76 +1,5 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <title>UniPlaner Registrierung</title>
-    <link rel="stylesheet" href="register.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-</head>
-<body>
-<div>
-    <div id="left_div">
-        <div id="text_div">
-            Keep <img id="logo" src="img/icons/android-chrome-512x512.png" alt="Logo"> the good work
-        </div>
-    </div>
-    <div id="right_div">
-        <p id="register_text">Registrierung</p>
-        <div id="box_register">
-            <form action="register.php" method="POST">
-                Benutzername:
-                <br>
-                <input id="username_textfield" type="text" name="registername" required="required">
-                Passwort:
-                <br>
-                <div class="inputWithIcon">
-                    <input id="password1_textfield" type=password name="registerpasswort" required="required" oninput='passwordcheck();'>
-                    <i id="icon1"></i>
-                </div>
-                Passwort wiederholen:
-                <br>
-                <div class="inputWithIcon">
-                    <input id="password2_textfield" type=password name="registerpasswort2" required="required" oninput='passwordcheck();'>
-                    <i id="icon2"></i>
-                </div>
-                <input id="button_register" type="submit" value="Registrieren" disabled>
-            </form>
-            Bereits registriert?
-            <br>
-            <button id="button_login" onclick="document.location='login.php'">Einloggen</button>
-        </div>
-    </div>
-</div>
-</body>
-<footer><small>&copy; Copyright 2021, Peter Hemmann & Dominic Eckerle</small></footer>
-</html>
-
-<script>
-    var password1 = document.getElementById('password1_textfield');
-    var password2 = document.getElementById('password2_textfield');
-    var icon1 = document.getElementById('icon1');
-    var icon2 = document.getElementById('icon2');
-    var button = document.getElementById('button_register');
-
-    var passwordcheck = function() {
-        if (password1.value === password2.value) {
-            icon1.style.color = 'green';
-            icon2.style.color = 'green';
-            icon1.className = 'fa fa-check-circle';
-            icon2.className = 'fa fa-check-circle';
-            button.disabled = false;
-        }
-        else {
-            icon1.style.color = 'red';
-            icon2.style.color = 'red';
-            icon1.className = 'fa fa-times-circle';
-            icon2.className = 'fa fa-times-circle';
-            button.disabled = true;
-        }
-    };
-</script>
-
 <?php
-
+session_start();
 $bool = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = new mysqli("localhost", "root", "", "uni-planner");
@@ -78,18 +7,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed" . $conn->connect_error);
     }
     $username = mysqli_real_escape_string($conn, $_POST['registername']);
-    $password = mysqli_real_escape_string($conn, $_POST['registerpasswort']);
-    $password2 = mysqli_real_escape_string($conn, $_POST['registerpasswort2']);
+    $password = password_hash(mysqli_real_escape_string($conn, $_POST['registerpasswort']), PASSWORD_BCRYPT);
+    $password2 = password_hash(mysqli_real_escape_string($conn, $_POST['registerpasswort2']), PASSWORD_BCRYPT);
     $table_users = null;
-
-    mysqli_select_db($conn, "uni-planner") or die("Cannot connect to database");
     $query = mysqli_query($conn, "Select * from user");
     while ($row = mysqli_fetch_array($query)) {
         $table_users = $row['username'];
         if ($username == $table_users) {
             $bool = false;
-            print '<script>alert("Benutzername bereits vergeben!");</script>';
-            print '<script>window.location.assign("register.php");</script>';
             break;
         }
     }
@@ -106,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_query($conn, "INSERT INTO plan (pID, uid, pname)
                             VALUES (3, $userid, 'plan3')");
         for ($i=1;$i<4;$i++) {
-            $result=mysqli_query($conn, "insert into moduls_plan_pos (mID, pID, uid, listID, posID)
+            mysqli_query($conn, "insert into moduls_plan_pos (mID, pID, uid, listID, posID)
                                         values  ('WK_1101', $i, $userid, 1, 0),
                                                 ('WK_1103', $i, $userid, 4, 0),
                                                 ('WK_1104', $i, $userid, 3, 0),
@@ -138,33 +63,92 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 ('WK_1504', $i, $userid, 6, 3),
                                                 ('WK_1520', $i, $userid, 1, 4),
                                                 ('WK_1601', $i, $userid, 0, 0),
-                                                ('WK_1602', $i, $userid, 0, 1),
-                                                ('WK_1603', $i, $userid, 0, 2),
-                                                ('WK_1604', $i, $userid, 0, 3),
-                                                ('WK_1605', $i, $userid, 0, 4),
-                                                ('WK_1606', $i, $userid, 0, 5),
-                                                ('WK_1609', $i, $userid, 0, 6),
-                                                ('WK_1610', $i, $userid, 0, 7),
-                                                ('WK_1611', $i, $userid, 0, 8),
-                                                ('WK_1612', $i, $userid, 0, 9),
-                                                ('WK_1613', $i, $userid, 0, 10),
-                                                ('WK_1614', $i, $userid, 0, 11),
-                                                ('WK_1615', $i, $userid, 0, 12);");
+                                                ('WK_1602', $i, $userid, 5, 2),
+                                                ('WK_1603', $i, $userid, 0, 4),
+                                                ('WK_1604', $i, $userid, 0, 1),
+                                                ('WK_1605', $i, $userid, 0, 2),
+                                                ('WK_1606', $i, $userid, 0, 3),
+                                                ('WK_1609', $i, $userid, 5, 3),
+                                                ('WK_1610', $i, $userid, 5, 4),
+                                                ('WK_1611', $i, $userid, 4, 4);");
         }
-        if ($result) {
-            echo($result);
-        } else {
-            echo(mysqli_error($conn));
-        }
-        $conn->close();
-        print '<script>alert("Erfolgreich registriert!");</script>';
-        print '<script>window.location.assign("login.php");</script>';
-        }
-
-
-//    } else {
-//        print '<script>alert("Passwörter nicht identisch!");</script>';
-//        print '<script>window.location.assign("register.php");</script>';
-
+        header("Location:login.php?success=true");
+    }
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>UniPlaner Registrierung</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+<div>
+    <div id="left_div">
+        <div id="text_div">
+            Keep <img id="logo" src="img/icons/android-chrome-512x512.png" alt="Logo"> the good work
+        </div>
+    </div>
+    <div id="right_div">
+        <p id="register_text">Registrierung</p>
+        <div id="box_register">
+            <form action="register.php" method="POST">
+                Benutzername:
+                <br>
+                <div class="tooltip">
+                    <input id="username_textfield" type="text" name="registername" required="required">
+                    <span id = "tooltip1" class="tooltiptext">
+                        <?php if(!$bool) {
+                            print '<script>document.getElementById("tooltip1").style.visibility = "visible";</script>';
+                            echo ("Benutzername bereits vergeben!");
+                        }
+                        ?></span>
+                </div>
+                Passwort:
+                <br>
+                <div class="inputWithIcon">
+                    <input id="password1_textfield" type=password name="registerpasswort" required="required" oninput='passwordcheck();'>
+                    <img id="icon1"></img>
+                </div>
+                Passwort wiederholen:
+                <br>
+                <div class="inputWithIcon">
+                    <input id="password2_textfield" type=password name="registerpasswort2" required="required"  oninput='passwordcheck();'>
+                    <img id="icon2"></img>
+                </div>
+                <input id="button_register" type="submit" value="Registrieren" disabled>
+            </form>
+            Bereits registriert?
+            <br>
+            <button id="button_login" onclick="document.location='login.php?success=false'">Einloggen</button>
+        </div>
+        <footer><small>&copy; Copyright 2021, Peter Hemmann & Dominic Eckerle</small></footer>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+    var password1 = document.getElementById('password1_textfield');
+    var password2 = document.getElementById('password2_textfield');
+    var icon1 = document.getElementById('icon1');
+    var icon2 = document.getElementById('icon2');
+    var button = document.getElementById('button_register');
+
+    var passwordcheck = function() {
+        if (password1.value === password2.value) {
+            icon1.setAttribute("src", "img/icons/Haken.png");
+            icon2.setAttribute("src", "img/icons/Haken.png");
+            button.disabled = false;
+        }
+        else {
+            icon1.setAttribute("src", "img/icons/Kreuz.png");
+            icon2.setAttribute("src", "img/icons/Kreuz.png");
+            button.disabled = true;
+        }
+    };
+</script>
+
+
