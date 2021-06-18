@@ -20,15 +20,24 @@
     height: 50px;
 }
 
+.dropbtn:after{
+    margin-left: 5px;
+    content: "▼";
+    font-size: 15px;
+}
+
 .dropbtn {
     background-color: white;
     color: darkslategrey;
-    padding: 5px;
+    padding: 5px 10px 5px 40px;
     font-size: 20px;
     border: none;
     margin: 12px;
-    width: 200px;
     text-align: center;
+    background-image: url("img/icons/Avatar.png");
+    background-position: 10px;
+    background-repeat: no-repeat;
+    background-size:20px;
 }
 
 .dropdown {
@@ -39,8 +48,9 @@
 .dropdown-content {
     display: none;
     position: absolute;
+    right: 15px;
     background-color: white;
-    min-width: 220px;
+    min-width: 180px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     border-radius: 6px;

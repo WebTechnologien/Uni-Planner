@@ -30,7 +30,6 @@ if(!($_SESSION["username"])) {
                 <a id="plan1">Plan 1</a>
                 <a id="plan2">Plan 2</a>
                 <a id="plan3">Plan 3</a>
-                <!-- <a id="addplan" href="#">Plan hinzufügen</a>-->
             </div>
             <div id="logout_div">
                 <a id="logout" href="logout.php">Logout</a>

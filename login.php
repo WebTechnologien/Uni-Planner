@@ -1,6 +1,27 @@
+<script>
+    function showSnackbar() {
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
+    // function showTooltip1() {
+    //     var x = document.getElementsByClassName(".tooltip .tooltiptext");
+    //     x.className = "show";
+    //     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    // }
+    // function showTooltip2() {
+    //     var x = document.getElementById("tooltip2");
+    //     x.className = ".tooltip .tooltiptext .show";
+    //     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    // }
+</script>
+
 <?php
 session_start();
 $message = "";
+
+
+
 
 if (count($_POST)>0) {
     $conn = new mysqli("localhost", "root", "", "uni-planner");
@@ -8,13 +29,21 @@ if (count($_POST)>0) {
         die("Connection failed" . $conn->connect_error);
     }
     mysqli_select_db($conn, "uni-planner") or die ("Cannot connect to database");
-    $query = mysqli_query($conn, "Select * from user where username='" . $_POST["loginname"] . "' and pwd='" . $_POST["loginpasswort"] . "'");
+    $username = mysqli_real_escape_string($conn, $_POST["loginname"]);
+    $password = mysqli_real_escape_string($conn, $_POST["loginpasswort"]);
+    $query = mysqli_query($conn, "Select * from user where username='" . $username . "'");
+    if (mysqli_num_rows($query)!=0) {
     $row = mysqli_fetch_array($query);
-    if (is_array($row)) {
-        $_SESSION["uid"] = $row['uid'];
-        $_SESSION["username"] = $row['username'];
-    } else {
-        $message = "Falscher Benutzname oder Passwort!";
+        if (password_verify($password, $row['pwd'])) {
+            $_SESSION["uid"] = $row['uid'];
+            $_SESSION["username"] = $row['username'];
+        }
+        else {
+            $message = "Falsches Passwort!";
+        }
+    }
+    else {
+    $message = "Falscher Benutzername!";
     }
     if (isset($_SESSION["uid"])) {
         header("Location:index.php");
@@ -34,16 +63,27 @@ if (count($_POST)>0) {
     <div id="left_div">
         <p id="login_text">Login</p>
         <div id="box_login">
-            <form method="post" action="">
-                Username:
+            <form method="post" action="login.php">
+                Benutzername:
                 <br>
-                <input id="username_textfield" name="loginname">
+                <div class="tooltip">
+                    <input id="username_textfield" name="loginname" required="required">
+                    <span id = "tooltip1" class="tooltiptext">Falscher Benutzername!
+                        <?php if($message=="Falscher Benutzername!") {
+                        header("Location:login.php?username=false");
+                        } ?></span>
+                </div>
                 Passwort:
                 <br>
-                <input id="password_textfield" name="loginpasswort" type=password>
+                <div class="tooltip">
+                    <input id="password_textfield" name="loginpasswort" type=password required="required">
+                    <span id = "tooltip2" class="tooltiptext">Falsches Passwort!
+                        <?php if($message=="Falsches Passwort!") {
+                            header("Location:login.php?password=false");
+                        } ?></span>
+                </div>
                 <br>
-                <input id="button_login" type=submit name=submit value="Login">
-                <div class="message"><?php if($message!="") { echo $message; } ?></div>
+                <input id="button_login" type=submit name=submit value="Einloggen">
             </form>
             Noch keinen Account?
             <br>
@@ -57,5 +97,18 @@ if (count($_POST)>0) {
         </div>
     </div>
 </div>
+<div id="snackbar">Erfolgreich registriert!</div>
 </body>
 </html>
+
+<?php   if ($_GET["success"]=="true") {
+            print '<script>showSnackbar();</script>';
+        }
+        if ($_GET["username"]=="false") {
+//            print '<script>showTooltip1();</script>';
+            print '<script>document.getElementById("tooltip1").style.visibility = "visible";</script>';
+        }
+        if ($_GET["password"]=="false") {
+//            print '<script>showTooltip2();</script>';
+            print '<script>document.getElementById("tooltip2").style.visibility = "visible";</script>';
+        } ?>
