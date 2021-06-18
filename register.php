@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_query($conn, "INSERT INTO plan (pID, uid, pname)
                             VALUES (3, $userid, 'plan3')");
         for ($i=1;$i<4;$i++) {
-            mysqli_query($conn, "insert into moduls_plan_pos (mID, pID, uid, listID, posID)
+            $result=mysqli_query($conn, "insert into moduls_plan_pos (mID, pID, uid, listID, posID)
                                         values  ('WK_1101', $i, $userid, 1, 0),
                                                 ('WK_1103', $i, $userid, 4, 0),
                                                 ('WK_1104', $i, $userid, 3, 0),
@@ -72,6 +72,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 ('WK_1610', $i, $userid, 5, 4),
                                                 ('WK_1611', $i, $userid, 4, 4);");
         }
+        if ($result) {
+            echo($result);
+        } else {
+            echo(mysqli_error($conn));
+        }
+        $conn->close();
         header("Location:login.php?success=true");
     }
 }
