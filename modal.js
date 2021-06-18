@@ -34,7 +34,7 @@ function handleModuleModal() {
         modal_body = document.getElementById("modal-body");
 
         let mbody = document.createElement("table");
-        const attr = ["Creditpoints", "Semester", "Verantwortung", "Dozent", "Inhalte", "Prüfungsleistung", "Prüfungsvorleistung"];
+        const attr = ["Creditpoints", "Semester", "Verantwortung", "Dozent", "Inhalte", "Prüfungsleistung", "Prüfungsvorleistung","Voraussetzungen"];
 
         for (const attrKey of attr) {
 

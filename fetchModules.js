@@ -40,7 +40,7 @@ window.onload = function(){
 function initSemArray(response) {
 
     x = response;
-
+    console.log(x)
     x = x.replaceAll(/\n/g, "<br />").replaceAll(/\r/g, "").replaceAll(/\t/g, "").replaceAll("Inhalte<br />","");
     x = x.substr(0, x.indexOf(']')+1);
 
