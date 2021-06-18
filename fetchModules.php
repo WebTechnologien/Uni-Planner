@@ -14,7 +14,7 @@ $uid= htmlspecialchars($_SESSION["uid"]);
 $pID = htmlspecialchars($_GET['p']);
 
 //echo("fetching plan: ".$pID." with uid: ".$uid);
-$result = $conn->query("SELECT modul.mid, titel, cp, semester,pflicht, wiSe,prufungsleistung,prfungsvorleistung,inhalte,verantwortung,dozent,  
+$result = $conn->query("SELECT modul.mid, titel,titel_long, cp, semester,pflicht, wiSe,prufungsleistung,prfungsvorleistung,inhalte,verantwortung,dozent,  
                                 mpp.pID, listID, posID  
                                FROM modul 
                                 INNER JOIN moduls_plan_pos mpp on modul.mID = mpp.mID
@@ -30,14 +30,15 @@ if ($result) {
 
         $outp .= '{"modulID":"' . $rs["mid"] . '",';
         $outp .= '"titel":"' . $rs["titel"] . '",';
+        $outp .= '"titel_long":"' . $rs["titel_long"] . '",';
         $outp .= '"Creditpoints":"' . $rs["cp"] . '",';
-        $outp .= '"semester":"' . $rs["semester"] . '",';
+        $outp .= '"Semester":"' . $rs["semester"] . '",';
         $outp .= '"WiSe":"' . $rs["wiSe"] . '",';
         $contstr  = $rs["inhalte"];
 
         $outp .= '"Inhalte":"' . $contstr . '",';
-//        $outp .= '"verantwortung":"' . $rs["verantwortung"] . '",';
-//        $outp .= '"dozent":"' . $rs["dozent"] . '",';
+        $outp .= '"Verantwortung":"' . $rs["verantwortung"] . '",';
+        $outp .= '"Dozent":"' . $rs["dozent"] . '",';
         $outp .= '"Prüfungsleistung":"' . $rs["prufungsleistung"] . '",';
         $outp .= '"Prüfungsvorleistung":"' . $rs["prfungsvorleistung"] . '",';
         $outp .= '"planID":"' . $rs["pID"] . '",';

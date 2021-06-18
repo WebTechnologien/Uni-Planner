@@ -1,15 +1,18 @@
 var sem = [];
-var viewMode;
+var viewMode=true;
 var planID;
 
-//default request
-request(1);
-viewMode=true;
 
+if(getCookie("planID")){
+    request(getCookie("planID"));
+}else{
+    request(1);
+}
 
 function request(planid) {
     sem=[];
     planID=planid;
+    document.cookie = "planID=" + planID
 
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
@@ -98,7 +101,7 @@ function refreshPlanContainer() {
         for (let j = 0; j < sem[i].length; j++) {
             let module = document.createElement("div");
             module.id = sem[i][j].modulID;
-            if (parseInt(sem[i][j].semester) !== 0) {
+            if (parseInt(sem[i][j].Semester) !== 0) {
                 module.classList.add("module-draggable");
             } else {
                 module.classList.add("module-draggable", "wahlpflichtmodul");
@@ -191,5 +194,7 @@ function resetModules(planID){
 
 }
 
+// https://stackoverflow.com/questions/5639346/what-is-the-shortest-function-for-reading-a-cookie-by-name-in-javascript
+function getCookie(c){return(document.cookie.match('(^|; )'+c+'=([^;]*)')||0)[2]}
 
 
