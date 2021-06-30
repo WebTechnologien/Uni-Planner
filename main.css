@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
 
+
+
 .navbar{
     display: flex;
     justify-content: space-between;
@@ -62,27 +64,17 @@
     background-color: #ddd;
 }
 
-#plan1 {
+.planButton:first-of-type {
     border-radius: 6px 6px 0 0;
     border-left: 2px solid darkslategrey;
     border-right: 2px solid darkslategrey;
     border-top: 2px solid darkslategrey;
 }
 
-#plan2 {
+.planButton{
     border-left: 2px solid darkslategrey;
     border-right: 2px solid darkslategrey;
 }
-
-#plan3 {
-    border-left: 2px solid darkslategrey;
-    border-right: 2px solid darkslategrey;
-}
-
-/*#addplan {*/
-/*    border-left: 2px solid darkslategrey;*/
-/*    border-right: 2px solid darkslategrey;*/
-/*}*/
 
 #logout {
     border: 2px solid darkslategrey;
@@ -214,9 +206,7 @@ a:hover {
     margin-left: 8px;
 
 
-    box-shadow:
-            0 1px 1px rgba(0, 0, 0, 0.11)
-
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11)
 }
 
 #semester-container .semester:first-child{
@@ -227,8 +217,7 @@ a:hover {
     background: white;
     padding: 264px 13.5px;
     margin-left: 8px;
-    box-shadow:
-            0 1px 1px rgba(0, 0, 0, 0.11);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11);
     cursor: default;
 }
 #addSemester h1{
@@ -299,9 +288,59 @@ a:hover {
     font-size: 0.65vw;
     word-break: break-word;
     font-family: 'Roboto', sans-serif;
+}
 
+.label{
+
+    border-radius: 2em;
+    font-size: 0.65vw;
+    display: inline-block;
+    margin:5px 2px;
+    padding: 0 8px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+
+.WiSe{
+    background-color: #CCF2FF;
+}
+
+.SoSe{
+    background-color: #C5E1C8;
+}
+
+.WiSeSoSe{
+    background: linear-gradient(to right bottom, #CCF2FF 50%, #C5E1C8 50%);
 
 }
+
+.WK{
+    background-color: rgb(251, 202, 4);
+
+}
+.CS{
+    background-color: rgb(247, 230, 68);
+}
+
+.BWL{
+    background-color: rgba(134, 212, 205, 0.7);
+}
+
+.QM{
+    color: white;
+    background-color: rgb(3, 102, 214);
+}
+
+.SK{
+    background-color: rgb(232, 212, 217);
+}
+
+.WPM, .kA {
+    box-shadow: 0 0 0 0.07em #000;
+}
+
 
 body::after {
     content: '';
@@ -325,8 +364,6 @@ footer {
 #plan-container .dragenter{
     background-color: #e0e0e0;
 }
-
-
 
 
 .hide {

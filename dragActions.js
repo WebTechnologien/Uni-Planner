@@ -40,9 +40,24 @@ function initEventListeners() {
             }
         } else {
             event.preventDefault();
+
+
             event.currentTarget.classList.add('dragenter');
         }
 
+    }
+
+    function getDragAfterElement(container, y) {
+
+        return modules.reduce((closest, child) => {
+            const box = child.getBoundingClientRect()
+            const offset = y - box.top - box.height / 2
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child }
+            } else {
+                return closest
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element
     }
 
     function onDragEnter(event) {
@@ -64,6 +79,7 @@ function initEventListeners() {
         const moduleID = event.dataTransfer.getData('text');
         const module = document.getElementById(moduleID);
         let target = event.currentTarget;
+        // const afterElement = getDragAfterElement(target,event.clientY)
 
         if (parseInt(event.currentTarget.id) === 0) {
             console.log("Target is Wahlpflicht-Area is dragged module a Wahlplichtmodul?:" + module.classList.contains("wahlpflichtmodul"))
@@ -73,6 +89,7 @@ function initEventListeners() {
 
             }
         } else if (module != null) {
+
             target.appendChild(module);
             moveModule(module, target.id)
 

@@ -28,9 +28,9 @@ if(!($_SESSION["username"])) {
         <button class="dropbtn"><?php echo $_SESSION["username"];?>  </button>
         <div class="dropdown-content">
             <div id="plan_div">
-                <a id="plan1">Plan 1</a>
-                <a id="plan2">Plan 2</a>
-                <a id="plan3">Plan 3</a>
+                <a id="plan1" class="planButton">Plan 1</a>
+                <a id="plan2" class="planButton">Plan 2</a>
+                <a id="plan3" class="planButton">Plan 3</a>
             </div>
             <div id="logout_div">
                 <a id="logout" href="logout.php">Logout</a>

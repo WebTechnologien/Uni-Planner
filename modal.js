@@ -33,13 +33,13 @@ function handleModuleModal() {
         modal_body.parentNode.replaceChild(elClone, modal_body);
         modal_body = document.getElementById("modal-body");
 
-        let mbody = document.createElement("table");
+        let table = document.createElement("table");
         const attr = ["Creditpoints", "Semester", "Verantwortung", "Dozent", "Inhalte", "Prüfungsleistung", "Prüfungsvorleistung","Voraussetzungen"];
 
         for (const attrKey of attr) {
 
             if (module.hasOwnProperty(attrKey)) {
-                let row = mbody.insertRow();
+                let row = table.insertRow();
 
                 let d = row.insertCell();
 
@@ -58,15 +58,14 @@ function handleModuleModal() {
             }
         }
 
-
-        modal_body.appendChild(mbody);
+        modal_body.appendChild(table);
     }
 
     function closeModal() {
         const modal = document.getElementById("modal");
 
-        document.body.style.overflow = "auto"; // ADD THIS LINE
-        document.body.style.height = "auto";  // ADD THIS LINE
+        document.body.style.overflow = "auto";
+        document.body.style.height = "auto";
         modal.classList.remove('visible');
         overlay.classList.remove('visible');
 
