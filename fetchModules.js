@@ -40,7 +40,6 @@ window.onload = function () {
 function initSemArray(response) {
 
     x = response;
-    console.log(x)
     x = x.replaceAll(/\n/g, "<br />").replaceAll(/\r/g, "").replaceAll(/\t/g, "").replaceAll("Inhalte<br />", "");
     x = x.substr(0, x.indexOf(']') + 1);
 
@@ -127,7 +126,7 @@ function refreshPlanContainer() {
                     semlabel.classList.add("WiSeSoSe");
                     semlabel.innerHTML = "WiSe/SoSe";
                     break;
-                case -1:
+                default:
                     semlabel.classList.add("kA");
                     semlabel.innerHTML = "k.A";
                     break;
