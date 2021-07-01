@@ -17,15 +17,23 @@ if(!($_SESSION["username"])) {
     <script src="saveModules.js"></script>
     <script src="addSemester.js"></script>
     <script src="modal.js"></script>
+    <script src="searchModule.js"></script>
 </head>
 
 <body>
 <nav class="navbar">
+
     <div id="logo">
-        <img src="img/icons/android-chrome-512x512.png" alt="Logo"></div>
+        <img src="img/icons/android-chrome-512x512.png" alt="Logo">
+    </div>
+
+    <div class="search-box">
+        <input id="search-text" class="search-text" type="text" placeholder="Modulsuche">
+        <img src="img/icons/Lupe.png">
+    </div>
 
     <div class="dropdown">
-        <button class="dropbtn"><?php echo $_SESSION["username"];?>  </button>
+        <button class="dropbtn"><?php echo $_SESSION["username"];?> ▼</button>
         <div class="dropdown-content">
             <div id="plan_div">
                 <a id="plan1" class="planButton">Plan 1</a>
@@ -37,6 +45,7 @@ if(!($_SESSION["username"])) {
             </div>
         </div>
     </div>
+
 </nav>
 
 <div id="plan-container">

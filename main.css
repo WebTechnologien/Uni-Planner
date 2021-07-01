@@ -14,7 +14,37 @@
     right: 0;
     left: 0;
     z-index: 10;
-    font-family: "Segoe UI", sans-serif
+    font-family: "Segoe UI", sans-serif;
+}
+
+.search-box {
+    height: 30px;
+    padding: 10px;
+    position: absolute;
+    left: 41.5%;
+}
+
+.search-box img {
+    height: 21px;
+    position: absolute;
+    right: 10px;
+    top: 6px;
+    padding: 9px 8px;
+    transition: 0.3s;
+}
+
+.search-text {
+    outline: none;
+    float: left;
+    color: darkslategrey;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 15px;
+    width: 200px;
+    line-height: 25px;
+    border-radius: 6px;
+    border: darkslategrey solid 2px;
+    padding-left: 5px;
+    padding-right: 30px;
 }
 
 #logo img{
@@ -29,7 +59,6 @@
     font-size: 20px;
     border: none;
     margin: 12px;
-    width: 200px;
     text-align: center;
     background-image: url("img/icons/Avatar.png");
     background-position: 10px;
@@ -46,7 +75,7 @@
     display: none;
     position: absolute;
     background-color: white;
-    min-width: 180px;
+    min-width: 200px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1;
     border-radius: 6px;
@@ -282,6 +311,10 @@ a:hover {
 
 .module-draggable:hover{
     box-shadow: 0 1px 12px 0 rgba(0,0,0,.3)
+}
+
+.highlighted {
+    box-shadow: 0 1px 10px 0 rgba(0,128,0,.8)
 }
 
 .module-draggable h1{
