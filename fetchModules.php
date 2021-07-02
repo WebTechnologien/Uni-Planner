@@ -13,8 +13,7 @@ session_start();
 $uid= htmlspecialchars($_SESSION["uid"]);
 $pID = htmlspecialchars($_GET['p']);
 
-//echo("fetching plan: ".$pID." with uid: ".$uid);
-$result = $conn->query("SELECT modul.mid, titel,titel_long, cp, semester,pflicht, wiSe,prufungsleistung,prfungsvorleistung,inhalte,verantwortung,dozent,voraussetzungen,  
+$result = $conn->query("SELECT modul.mid, titel,titel_long, cp, semester,pflicht, wiSe,prufungsleistung,prfungsvorleistung,inhalte,verantwortung,dozent,  
                                 mpp.pID, listID, posID  
                                FROM modul 
                                 INNER JOIN moduls_plan_pos mpp on modul.mID = mpp.mID
@@ -39,7 +38,6 @@ if ($result) {
         $outp .= '"Dozent":"' . $rs["dozent"] . '",';
         $outp .= '"Prüfungsleistung":"' . $rs["prufungsleistung"] . '",';
         $outp .= '"Prüfungsvorleistung":"' . $rs["prfungsvorleistung"] . '",';
-        $outp .= '"Voraussetzungen":"' . $rs["voraussetzungen"] . '",';
         $outp .= '"planID":"' . $rs["pID"] . '",';
         $outp .= '"listID":"' . $rs["listID"] . '",';
         $outp .= '"posID":"' . $rs["posID"] . '"}';
