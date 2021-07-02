@@ -13,7 +13,6 @@ session_start();
 $uid= htmlspecialchars($_SESSION["uid"]);
 $pID = htmlspecialchars($_GET['p']);
 
-//echo("fetching plan: ".$pID." with uid: ".$uid);
 $result = $conn->query("SELECT modul.mid, titel,titel_long, cp, semester,pflicht, wiSe,prufungsleistung,prfungsvorleistung,inhalte,verantwortung,dozent,  
                                 mpp.pID, listID, posID  
                                FROM modul 

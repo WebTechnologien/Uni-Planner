@@ -19,7 +19,6 @@ function handleModuleModal() {
         const modal = document.getElementById("modal");
         modal.classList.add('visible');
         overlay.classList.add('visible');
-        //deactivate body scroll
 
         module_i = getIndexOfModule(event.currentTarget);
         module = sem[module_i[0]][module_i[1]];

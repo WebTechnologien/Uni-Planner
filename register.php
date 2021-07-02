@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = password_hash(mysqli_real_escape_string($conn, $_POST['registerpasswort']), PASSWORD_BCRYPT);
     $password2 = password_hash(mysqli_real_escape_string($conn, $_POST['registerpasswort2']), PASSWORD_BCRYPT);
     $table_users = null;
-    $query = mysqli_query($conn, "Select * from user");
+    $query = mysqli_query($conn, "Select * from users");
     while ($row = mysqli_fetch_array($query)) {
         $table_users = $row['username'];
         if ($username == $table_users) {
@@ -19,9 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     if ($bool) {
-        mysqli_query($conn, "INSERT INTO user (username, pwd)
+        mysqli_query($conn, "INSERT INTO users (username, pwd)
                             VALUES ('$username', '$password')");
-        $query2 = mysqli_query($conn, "Select uid from user where username = '$username'");
+        $query2 = mysqli_query($conn, "Select uid from users where username = '$username'");
         $row2 = mysqli_fetch_array($query2);
         $userid = intval($row2['uid']);
         mysqli_query($conn, "INSERT INTO plan (pID, uid, pname)
@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo(mysqli_error($conn));
         }
         $conn->close();
-        header("Location:login.php?success=true");
+        header("Location:login.php?success=true&password=true&username=true");
     }
 }
 ?>
@@ -132,7 +132,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
             Bereits registriert?
             <br>
-            <button id="button_login" onclick="document.location='login.php?success=false'">Einloggen</button>
+            <button id="button_login" onclick="document.location='login.php?success=false&password=true&username=true'">Einloggen</button>
         </div>
         <footer><small>&copy; Copyright 2021, Peter Hemmann & Dominic Eckerle</small></footer>
     </div>

@@ -4,16 +4,6 @@
         x.className = "show";
         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
     }
-    // function showTooltip1() {
-    //     var x = document.getElementsByClassName(".tooltip .tooltiptext");
-    //     x.className = "show";
-    //     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-    // }
-    // function showTooltip2() {
-    //     var x = document.getElementById("tooltip2");
-    //     x.className = ".tooltip .tooltiptext .show";
-    //     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-    // }
 </script>
 
 <?php
@@ -28,10 +18,9 @@ if (count($_POST)>0) {
     if ($conn->connect_error) {
         die("Connection failed" . $conn->connect_error);
     }
-    mysqli_select_db($conn, "uni-planner") or die ("Cannot connect to database");
     $username = mysqli_real_escape_string($conn, $_POST["loginname"]);
     $password = mysqli_real_escape_string($conn, $_POST["loginpasswort"]);
-    $query = mysqli_query($conn, "Select * from user where username='" . $username . "'");
+    $query = mysqli_query($conn, "Select * from users where username='" . $username . "'");
     if (mysqli_num_rows($query)!=0) {
     $row = mysqli_fetch_array($query);
         if (password_verify($password, $row['pwd'])) {
@@ -70,7 +59,7 @@ if (count($_POST)>0) {
                     <input id="username_textfield" name="loginname" required="required">
                     <span id = "tooltip1" class="tooltiptext">Falscher Benutzername!
                         <?php if($message=="Falscher Benutzername!") {
-                        header("Location:login.php?username=false");
+                        header("Location:login.php?success=false&password=true&username=false");
                         } ?></span>
                 </div>
                 Passwort:
@@ -79,7 +68,7 @@ if (count($_POST)>0) {
                     <input id="password_textfield" name="loginpasswort" type=password required="required">
                     <span id = "tooltip2" class="tooltiptext">Falsches Passwort!
                         <?php if($message=="Falsches Passwort!") {
-                            header("Location:login.php?password=false");
+                            header("Location:login.php?success=false&password=false&username=true");
                         } ?></span>
                 </div>
                 <br>
@@ -105,10 +94,8 @@ if (count($_POST)>0) {
             print '<script>showSnackbar();</script>';
         }
         if ($_GET["username"]=="false") {
-//            print '<script>showTooltip1();</script>';
             print '<script>document.getElementById("tooltip1").style.visibility = "visible";</script>';
         }
         if ($_GET["password"]=="false") {
-//            print '<script>showTooltip2();</script>';
             print '<script>document.getElementById("tooltip2").style.visibility = "visible";</script>';
         } ?>
