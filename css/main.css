@@ -1,0 +1,270 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
+
+/*Bereichsüberschrift*/
+h1 {
+    font-weight: normal;
+    font-size: 20px;
+    text-align: center;
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/*Semesterüberschrift*/
+h2 {
+
+    font-size: medium;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/*Modulüberschrift*/
+h3 {
+    font-size: 0.65vw;
+    word-break: break-word;
+    font-family: 'Roboto', sans-serif;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+
+}
+
+
+body {
+    background-color: #F5F5F5;
+    position: relative;
+    font-family: sans-serif;
+    padding: 70px 0 0 0;
+}
+
+
+#plan-container {
+    display: table;
+    width: 50%;
+    margin: 0 auto;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.11);
+}
+
+
+#semester-header {
+    background: white;
+    padding: 8px;
+    border-radius: 6px 6px 0 0;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11);
+}
+
+#semester-container {
+    display: flex;
+}
+
+#semester-container .semester {
+    background-color: white;
+    text-align: center;
+    flex-basis: 100%;
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 0;
+    margin-left: 8px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11)
+}
+
+#semester-container .semester:first-child {
+    margin-left: 0;
+}
+
+#addSemester {
+    background: white;
+    padding: 264px 13.5px;
+    margin-left: 8px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11);
+    cursor: default;
+}
+
+#addSemester:hover {
+    background: #e0e0e0;
+}
+
+#wahlpflicht-header {
+    background-color: white;
+    text-align: center;
+    padding: 8px;
+    margin: 8px 0 6px 0;
+}
+
+.wahlpflicht-container {
+    background: white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-radius: 0 0 6px 6px;
+    padding: 10px;
+    box-shadow: none;
+}
+
+.wahlpflicht-container .module-draggable {
+    margin-left: 1.1vw;
+}
+
+.module-draggable {
+    background-color: white;
+    border: 1px solid darkgray;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 5px;
+    font-weight: normal;
+    text-align: left;
+    height: 60px;
+    width: 10.5vw;
+    pointer-events: auto;
+}
+
+.module-draggable:hover {
+    box-shadow: 0 1px 12px 0 rgba(0, 0, 0, .3)
+}
+
+#semester-container .module-draggable {
+    margin-right: 0;
+}
+
+#plan-container .dragenter {
+    background-color: #e0e0e0;
+}
+
+.highlighted {
+    box-shadow: 0 1px 10px 0 rgba(0, 128, 0, .8);
+    position: relative;
+    z-index: 10;
+}
+*.noElevation{
+    z-index: auto;
+}
+
+.notHighlighted > h3 {
+    color: #e0e0e0;
+}
+
+
+/*---------- Labels --------------*/
+
+.label {
+    position: relative;
+    border-radius: 2em;
+    font-size: 0.65vw;
+    display: inline-block;
+    margin: 5px 2px;
+    padding: 0 8px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+}
+
+/* Tooltips orientiert an: https://www.w3schools.com/css/css_tooltip.asp */
+.label .tooltip {
+    visibility: hidden;
+    position: absolute;
+    width: 140px;
+    top: 100%;
+    left: 50%;
+    margin-left: -70px; /* Use half of the width (120/2 = 60), to center the tooltip */
+    margin-top: 8px;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    z-index: 10;
+    cursor: auto;
+}
+
+.label .tooltip::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%; /* At the top of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+
+[draggable=false] .label:hover .tooltip {
+    visibility: visible;
+}
+
+
+.WiSe {
+    background-color: #CCF2FF;
+}
+
+.SoSe {
+    background-color: #C5E1C8;
+}
+
+.WiSe\/SoSe {
+    background: linear-gradient(to right bottom, #CCF2FF 50%, #C5E1C8 50%);
+}
+
+.WK {
+    background-color: rgb(251, 202, 4);
+}
+
+.CS {
+    background-color: rgb(247, 230, 68);
+}
+
+.BWL {
+    background-color: rgba(134, 212, 205, 0.7);
+}
+
+.QM {
+    color: white;
+    background-color: rgb(3, 102, 214);
+}
+
+.SK {
+    background-color: rgb(232, 212, 217);
+}
+
+.WPM, .kA {
+    box-shadow: 0 0 0 0.07em #000;
+}
+
+body::after {
+    content: '';
+    display: block;
+    height: 70px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+}
+
+
+.hide {
+    transition: 0.001s;
+    transform: translate(-9999px);
+}
+
+.noPointer {
+    pointer-events: none;
+}
+
+*.unselectable, h1, h2, h3, .label, .button {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+

@@ -1,3 +1,4 @@
+let originIndex;
 function initEventListeners() {
     const semContainers = document.querySelectorAll('.semester');
     const modules = document.querySelectorAll('.module-draggable');
@@ -24,8 +25,8 @@ function initEventListeners() {
                 module.classList.add('noPointer');
             }
         })
-
         let module = document.getElementById(event.target.id);
+        originIndex = getIndexOfModule(event.target.id);
         module.classList.add('dragging')
         if (module.classList.contains("wahlpflichtmodul")) {
             event.dataTransfer.setData('wahlpflichtmodul', '')
@@ -37,21 +38,19 @@ function initEventListeners() {
         const module = document.querySelector('.dragging')
         let target = event.currentTarget;
 
-        const afterElement = getDragAfterElement(target, event.clientY)
         if (parseInt(event.currentTarget.id) === 0) {
+
             if (event.dataTransfer.types.includes("wahlpflichtmodul")) {
                 event.preventDefault();
                 event.currentTarget.classList.add('dragenter');
             }
         } else {
-
+            const afterElement = getDragAfterElement(target, event.clientY)
             event.preventDefault();
             if (afterElement == null) {
                 target.appendChild(module);
                 appendModule(module, target.id)
             } else {
-                // console.log(afterElement.id)
-
                 target.insertBefore(module, afterElement);
                 moveModule(module, afterElement);
             }
@@ -59,7 +58,6 @@ function initEventListeners() {
         }
 
     }
-
 
     function onDragEnter(event) {
         if (parseInt(event.currentTarget.id) === 0) {
@@ -88,16 +86,10 @@ function initEventListeners() {
                 target.appendChild(module);
                 appendModule(module, target.id)
             }
-        } else if (module != null) {
-            if (afterElement == null) {
-
-            }else{
-
-            }
         }
 
         event.currentTarget.classList.remove('dragenter');
-
+        checkRequirements(getIndexOfModule(module.id));
     }
 
     function onDragEnd(event) {
@@ -111,33 +103,32 @@ function initEventListeners() {
 
 
 function appendModule(module, newIndex) {
-    let index = getIndexOfModule(module);
+    let index = getIndexOfModule(module.id);
     let oldListIndex = index[0];
     let oldPosIndex = index[1];
-    console.log(getIndexOfModule(document.getElementById("WK_1108")))
+    console.log(module,newIndex)
     sem[newIndex].push(sem[oldListIndex][oldPosIndex]);
     sem[oldListIndex].splice(oldPosIndex, 1);
-    console.log(getIndexOfModule(document.getElementById("WK_1108")))
 }
 
 function moveModule(module, afterElement) {
-    let oldindex = getIndexOfModule(module);
-    let newIndex = getIndexOfModule(afterElement);
+    let oldindex = getIndexOfModule(module.id);
+    let newIndex = getIndexOfModule(afterElement.id);
 
     if (oldindex[0] !== newIndex[0] || oldindex[1] !== newIndex[1]) {
-        console.log(sem[oldindex[0]][oldindex[1]].titel+" "+oldindex + " to " + newIndex)
+        console.log(sem[oldindex[0]][oldindex[1]].titel + " " + oldindex + " to " + newIndex)
 
-        moduleobj=sem[oldindex[0]][oldindex[1]]
+        moduleobj = sem[oldindex[0]][oldindex[1]]
         sem[oldindex[0]].splice(oldindex[1], 1);
         sem[newIndex[0]].splice(newIndex[1], 0, moduleobj)
     }
 }
 
-function getIndexOfModule(module) {
+function getIndexOfModule(moduleID) {
     // console.log("searching for: " + module.id);
     for (let i = 0; i < sem.length; i++) {
         for (let j = 0; j < sem[i].length; j++) {
-            if (sem[i][j].modulID === module.id) {
+            if (sem[i][j].modulID === moduleID) {
                 return [i, j];
             }
         }
@@ -158,4 +149,60 @@ function getDragAfterElement(targetContainer, y) {
             return closest
         }
     }, {offset: Number.NEGATIVE_INFINITY}).element
+}
+
+
+function checkRequirements(index) {
+
+    const requirements = sem[index[0]][index[1]].Voraussetzungen.split("(").slice(1)
+    let text="";
+    for (const requirementsElement of requirements) {
+        r_index = getIndexOfModule(requirementsElement.substr(0,requirementsElement.indexOf(")")));
+        if(r_index[0]>=index[0]){
+            text += "Für das Modul \""+sem[index[0]][index[1]].titel.trim()+"\" wird \""+sem[r_index[0]][r_index[1]].titel+"\" vorrausgesetzt!<br>"
+        }
+    }
+
+    const requiredFor = sem[index[0]][index[1]].Vorraussetzung_fuer.split(",")
+    for (const requiredForElement of requiredFor) {
+        r2_index = getIndexOfModule(requiredForElement);
+        if(r2_index[0]<=index[0]){
+            text +="Für das Modul \""+sem[r2_index[0]][r2_index[1]].titel+"\" wird \""+sem[index[0]][index[1]].titel.trim()+"\" vorrausgesetzt!<br>"
+        }
+    }
+    if (text.length>0){
+        const reqmodal = document.getElementById("reqmodal");
+        const overlay = document.getElementById("overlay");
+        const closeBtn = document.querySelector('#reqmodal .close-button');
+        reqmodal.classList.add('visible');
+        overlay.classList.add('visible');
+
+        closeBtn.addEventListener('click', closeModal);
+        overlay.addEventListener('click', closeModal);
+
+        document.body.style.overflow = "hidden";
+        document.body.style.height = "100%"
+
+        document.getElementById("reqtext").innerHTML=text;
+
+        document.getElementById("modal-okButton").onclick = function () {
+            closeModal();
+        }
+
+        document.getElementById("modal-revertButton").onclick = function () {
+            module = document.getElementById(sem[index[0]][index[1]].modulID)
+            document.getElementById(originIndex[0]).appendChild(module);
+            appendModule(module,originIndex[0]);
+            closeModal();
+        }
+
+        function closeModal(){
+            text="";
+            console.log(text)
+            document.body.style.overflow = "auto";
+            document.body.style.height = "auto";
+            reqmodal.classList.remove('visible');
+            overlay.classList.remove('visible');
+        }
+    }
 }

@@ -82,15 +82,80 @@
     width: 10px;
 }
 
-
-
-/* Handle */
 .modal-body::-webkit-scrollbar-thumb {
     background: #999;
-    border-radius: 6px;
+    border-radius: 5px;
     padding: 1px;
+    margin-right: 1px;
 }
+
 
 .modal-body::-webkit-scrollbar-thumb:hover {
     background: #666;
 }
+
+
+/*Warning modal for reset*/
+.warning-modal{
+    text-align: center;
+}
+
+.warning-modal .title{
+    font-weight: bold;
+    width: 100%;
+}
+
+.warning-modal .modal-body{
+    padding: 0;
+    overflow-y: hidden;
+}
+
+#modal-cancelButton{
+    float: left;
+    width: 50%;
+    border-radius: 0 0 0 8px;
+    background-color: rgba(49, 130, 126, 0.70);
+}
+#modal-cancelButton:hover{
+    background-color: rgba(49, 130, 126, 0.40);
+}
+#modal-resetButton{
+    float: left;
+    width: 50%;
+    border-radius: 0 0 8px 0;
+    background-color: rgba(244,67,54,1);
+}
+
+#modal-resetButton:hover{
+    background-color: rgba(244,67,54,0.4);
+}
+
+/*Warning modal for requirments*/
+
+#reqmodal #modal-body p{
+    text-align: left;
+    padding: 0 40px;
+}
+
+#modal-okButton{
+    float: left;
+    width: 50%;
+    border-radius: 0 0 8px 0;
+    background-color: rgba(244,67,54,1);
+}
+
+#modal-okButton:hover{
+    background-color: rgba(244,67,54,0.4);
+}
+
+#modal-revertButton{
+    float: left;
+    width: 50%;
+    border-radius: 0 0 0 8px;
+    background-color: rgba(49, 130, 126, 0.70);
+}
+
+#modal-revertButton:hover{
+    background-color: rgba(49, 130, 126, 0.40);
+}
+

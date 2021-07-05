@@ -1,17 +1,15 @@
 <?php
+include_once ("database.php");
+global $conn;
 header("Content-Type: application/json; charset=UTF-8");
 
 $obj = json_decode($_POST["semArray"], true);
 
-$conn = new mysqli("localhost", "root", "", "uni-planner");
 mysqli_set_charset($conn, "UTF8");
-
-if ($conn->connect_error) {
-    die("Connection failed" . $conn->connect_error);
-}
 session_start();
 $uid = $_SESSION["uid"];
 $planID = htmlspecialchars($_POST['planID']);
+
 $xlength = count($obj);
 for ($x = 0; $x < $xlength; $x++) {
 

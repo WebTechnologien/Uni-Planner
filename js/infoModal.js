@@ -3,6 +3,7 @@ function handleModuleModal() {
     const modules = document.querySelectorAll('.module-draggable');
     const closeBtn = document.querySelector('.close-button');
     const overlay = document.getElementById('overlay');
+
     modules.forEach(module => {
         module.addEventListener('click', openModal);
     });
@@ -13,6 +14,10 @@ function handleModuleModal() {
 
     function openModal(event) {
 
+        event.stopPropagation();
+        document.querySelectorAll(".highlighted").forEach(el=>{
+            el.classList.add("noElevation")
+        })
         document.body.style.overflow = "hidden";
         document.body.style.height = "100%"
 
@@ -20,11 +25,11 @@ function handleModuleModal() {
         modal.classList.add('visible');
         overlay.classList.add('visible');
 
-        module_i = getIndexOfModule(event.currentTarget);
+        module_i = getIndexOfModule(event.currentTarget.id);
         module = sem[module_i[0]][module_i[1]];
 
         const modal_title = document.querySelector('.modal-header .title');
-        modal_title.innerHTML=module.titel_long;
+        modal_title.innerHTML=module.modulID+": "+ module.titel_long;
 
         let modal_body = document.getElementById("modal-body");
 
@@ -39,12 +44,13 @@ function handleModuleModal() {
 
             if (module.hasOwnProperty(attrKey)) {
                 let row = table.insertRow();
-
                 let d = row.insertCell();
 
+                if(attrKey.startsWith("Semester"))
+                    d.appendChild(document.createTextNode("Standard-Semester"));
+                else
                 d.appendChild(document.createTextNode(attrKey));
                 row.appendChild(d);
-
                 let d2 = row.insertCell();
                 let data = document.createElement("div");
                 data.innerHTML=module[attrKey];
@@ -52,11 +58,9 @@ function handleModuleModal() {
                     data.innerHTML= "alle (Wahlpflichtmodul)";
                 }
                 d2.appendChild(data);
-
                 row.appendChild(d2);
             }
         }
-
         modal_body.appendChild(table);
     }
 
@@ -67,7 +71,7 @@ function handleModuleModal() {
         document.body.style.height = "auto";
         modal.classList.remove('visible');
         overlay.classList.remove('visible');
-
     }
-
 }
+
+

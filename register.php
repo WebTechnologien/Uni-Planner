@@ -1,11 +1,10 @@
 <?php
+include_once ("database.php");
+global $conn;
 session_start();
 $bool = true;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = new mysqli("localhost", "root", "", "uni-planner");
-    if ($conn->connect_error) {
-        die("Connection failed" . $conn->connect_error);
-    }
+
     $username = mysqli_real_escape_string($conn, $_POST['registername']);
     $password = password_hash(mysqli_real_escape_string($conn, $_POST['registerpasswort']), PASSWORD_BCRYPT);
     $password2 = password_hash(mysqli_real_escape_string($conn, $_POST['registerpasswort2']), PASSWORD_BCRYPT);
@@ -19,11 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     if ($bool) {
-        mysqli_query($conn, "INSERT INTO users (username, pwd)
-                            VALUES ('$username', '$password')");
+        mysqli_query($conn, "INSERT INTO users (username, pwd) VALUES ('$username', '$password')");
         $query2 = mysqli_query($conn, "Select uid from users where username = '$username'");
         $row2 = mysqli_fetch_array($query2);
         $userid = intval($row2['uid']);
+
         mysqli_query($conn, "INSERT INTO plan (pID, uid, pname)
                             VALUES (1, $userid, 'plan1')");
         mysqli_query($conn, "INSERT INTO plan (pID, uid, pname)
@@ -31,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_query($conn, "INSERT INTO plan (pID, uid, pname)
                             VALUES (3, $userid, 'plan3')");
         for ($i=1;$i<4;$i++) {
+
             $result=mysqli_query($conn, "insert into moduls_plan_pos (mID, pID, uid, listID, posID)
                                         values  ('WK_1101', $i, $userid, 1, 0),
                                                 ('WK_1103', $i, $userid, 4, 0),
@@ -91,14 +91,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>UniPlaner Registrierung</title>
-    <link rel="stylesheet" href="register.css">
+    <title>Uni-Planner Registrierung</title>
+    <link rel="stylesheet" href="css/register.css">
 </head>
 <body>
 <div>
     <div id="left_div">
         <div id="text_div">
-            Keep <img id="logo" src="img/icons/android-chrome-512x512.png" alt="Logo"> the good work
+            Keep <img id="logo" src="images/logo.png" alt="Logo"> the good work
         </div>
     </div>
     <div id="right_div">

@@ -1,13 +1,11 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
+include_once ("database.php");
+global $conn;
 
-$conn = new mysqli("localhost", "root", "", "uni-planner");
 mysqli_set_charset($conn, "UTF8");
-
-if ($conn->connect_error) {
-    die("Connection failed" . $conn->connect_error);
-}
 session_start();
+
 $userid = $_SESSION["uid"];
 $planID = htmlspecialchars($_POST['planID']);
 

@@ -1,0 +1,60 @@
+.button {
+    height: 43px;
+    padding: 0 15px 0 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    font-size: 16px;
+
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-family: "Segoe UI", sans-serif;
+}
+
+.left-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 6px 0 0 0;
+    background-color: rgba(49, 130, 126, 0.40);
+}
+
+.left-button:hover {
+    background-color: rgba(49, 130, 126, 0.70);
+}
+
+.right-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 0 6px 0 0;
+    background-color: rgba(49, 130, 126, 1.0);
+}
+
+.right-button:hover {
+    background-color: rgba(49, 130, 126, 0.8);
+}
+
+.cancel-button {
+    position: absolute;
+    top: 0;
+    color: rgba(49, 130, 126, 0.70);
+    right: 127px;
+    background-color: white;
+
+}
+
+.cancel-button:hover {
+    background-color: whitesmoke;
+}
+
+
+.button img {
+    padding-right: 10px;
+    width: 20px;
+    height: 20px;
+}
