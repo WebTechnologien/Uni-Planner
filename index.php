@@ -34,7 +34,7 @@ if (!($_SESSION["username"])) {
     </div>
 
     <div class="dropdown">
-        <button class="dropbtn"><?php echo $_SESSION["username"]; ?> </button>
+        <button class="dropbtn"><?php print $_SESSION["username"]; ?> </button>
         <div class="dropdown-content">
             <div id="plan_div">
                 <a id="plan1" class="planButton">Plan 1</a>
@@ -110,7 +110,6 @@ if (!($_SESSION["username"])) {
     <div id="overlay"></div>
 
 </div>
-
 
 </body>
 

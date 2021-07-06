@@ -112,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <span id="tooltip1" class="tooltiptext">
                         <?php if (!$bool) {
                             print '<script>document.getElementById("tooltip1").style.visibility = "visible";</script>';
-                            echo("Benutzername bereits vergeben!");
+                            print ("Benutzername bereits vergeben!");
                         }
                         ?></span>
                 </div>
@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
             Bereits registriert?
             <br>
-            <button id="button_login" onclick="document.location='login.php?success=false'">
+            <button id="button_login" onclick="document.location='login.php'">
                 Einloggen
             </button>
         </div>

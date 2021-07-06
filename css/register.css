@@ -7,8 +7,6 @@ h1{
     font-size: 20px;
 }
 
-
-
 #left_div {
     display: flex;
     justify-content: center;
@@ -148,6 +146,7 @@ footer {
     text-align: center;
 }
 
+/* Tooltips orientiert an: https://www.w3schools.com/css/css_tooltip.asp */
 .tooltip {
     position: relative;
     display: inline-block;
