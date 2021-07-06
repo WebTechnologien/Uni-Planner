@@ -1,8 +1,9 @@
 let originIndex;
-function initEventListeners() {
+let lastAfterElement
+
+function initDragDropEventListeners() {
     const semContainers = document.querySelectorAll('.semester');
     const modules = document.querySelectorAll('.module-draggable');
-
 
     semContainers.forEach(semContainer => {
         semContainer.addEventListener('dragover', onDragOver);
@@ -39,11 +40,14 @@ function initEventListeners() {
         let target = event.currentTarget;
 
         if (parseInt(event.currentTarget.id) === 0) {
-
             if (event.dataTransfer.types.includes("wahlpflichtmodul")) {
                 event.preventDefault();
                 event.currentTarget.classList.add('dragenter');
             }
+        } else if (target.childNodes.length === 0) {
+            event.preventDefault();
+            target.appendChild(module);
+            appendModule(module, target.id);
         } else {
             const afterElement = getDragAfterElement(target, event.clientY)
             event.preventDefault();
@@ -52,12 +56,14 @@ function initEventListeners() {
                 appendModule(module, target.id)
             } else {
                 target.insertBefore(module, afterElement);
+                lastAfterElement = afterElement;
                 moveModule(module, afterElement);
             }
-            event.currentTarget.classList.add('dragenter');
         }
 
+        event.currentTarget.classList.add('dragenter');
     }
+
 
     function onDragEnter(event) {
         if (parseInt(event.currentTarget.id) === 0) {
@@ -78,13 +84,13 @@ function initEventListeners() {
         const moduleID = event.dataTransfer.getData('text');
         const module = document.getElementById(moduleID);
         let target = event.currentTarget;
-        const afterElement = getDragAfterElement(target, event.clientY)
+        const afterElement = getDragAfterElement(target, event.clientY);
 
         if (parseInt(event.currentTarget.id) === 0) {
             console.log("Target is Wahlpflicht-Area is dragged module a Wahlplichtmodul?:" + module.classList.contains("wahlpflichtmodul"))
             if (module.classList.contains("wahlpflichtmodul")) {
                 target.appendChild(module);
-                appendModule(module, target.id)
+                appendModule(module, target.id);
             }
         }
 
@@ -106,7 +112,7 @@ function appendModule(module, newIndex) {
     let index = getIndexOfModule(module.id);
     let oldListIndex = index[0];
     let oldPosIndex = index[1];
-    console.log(module,newIndex)
+
     sem[newIndex].push(sem[oldListIndex][oldPosIndex]);
     sem[oldListIndex].splice(oldPosIndex, 1);
 }
@@ -118,14 +124,13 @@ function moveModule(module, afterElement) {
     if (oldindex[0] !== newIndex[0] || oldindex[1] !== newIndex[1]) {
         console.log(sem[oldindex[0]][oldindex[1]].titel + " " + oldindex + " to " + newIndex)
 
-        moduleobj = sem[oldindex[0]][oldindex[1]]
+        moduleobj = sem[oldindex[0]][oldindex[1]];
         sem[oldindex[0]].splice(oldindex[1], 1);
-        sem[newIndex[0]].splice(newIndex[1], 0, moduleobj)
+        sem[newIndex[0]].splice(newIndex[1], 0, moduleobj);
     }
 }
 
 function getIndexOfModule(moduleID) {
-    // console.log("searching for: " + module.id);
     for (let i = 0; i < sem.length; i++) {
         for (let j = 0; j < sem[i].length; j++) {
             if (sem[i][j].modulID === moduleID) {
@@ -154,55 +159,34 @@ function getDragAfterElement(targetContainer, y) {
 
 function checkRequirements(index) {
 
-    const requirements = sem[index[0]][index[1]].Voraussetzungen.split("(").slice(1)
-    let text="";
+    const requirements = sem[index[0]][index[1]].Voraussetzungen.split("(").slice(1);
+    let text = "";
     for (const requirementsElement of requirements) {
-        r_index = getIndexOfModule(requirementsElement.substr(0,requirementsElement.indexOf(")")));
-        if(r_index[0]>=index[0]){
-            text += "Für das Modul \""+sem[index[0]][index[1]].titel.trim()+"\" wird \""+sem[r_index[0]][r_index[1]].titel+"\" vorrausgesetzt!<br>"
+        r_index = getIndexOfModule(requirementsElement.substr(0, requirementsElement.indexOf(")")));
+        if (r_index[0] >= index[0]) {
+            text += "Für das Modul \"" + sem[index[0]][index[1]].titel.trim() + "\" wird \"" + sem[r_index[0]][r_index[1]].titel + "\" vorrausgesetzt!<br>";
         }
     }
 
     const requiredFor = sem[index[0]][index[1]].Vorraussetzung_fuer.split(",")
     for (const requiredForElement of requiredFor) {
         r2_index = getIndexOfModule(requiredForElement);
-        if(r2_index[0]<=index[0]){
-            text +="Für das Modul \""+sem[r2_index[0]][r2_index[1]].titel+"\" wird \""+sem[index[0]][index[1]].titel.trim()+"\" vorrausgesetzt!<br>"
+        if (r2_index[0] <= index[0]) {
+            text += "Für das Modul \"" + sem[r2_index[0]][r2_index[1]].titel + "\" wird \"" + sem[index[0]][index[1]].titel.trim() + "\" vorrausgesetzt!<br>";
         }
     }
-    if (text.length>0){
-        const reqmodal = document.getElementById("reqmodal");
-        const overlay = document.getElementById("overlay");
-        const closeBtn = document.querySelector('#reqmodal .close-button');
-        reqmodal.classList.add('visible');
-        overlay.classList.add('visible');
-
-        closeBtn.addEventListener('click', closeModal);
-        overlay.addEventListener('click', closeModal);
-
-        document.body.style.overflow = "hidden";
-        document.body.style.height = "100%"
-
-        document.getElementById("reqtext").innerHTML=text;
-
+    if (text.length > 0) {
+        initModal(document.getElementById("reqmodal"));
+        document.getElementById("reqtext").innerHTML = text;
         document.getElementById("modal-okButton").onclick = function () {
             closeModal();
         }
 
         document.getElementById("modal-revertButton").onclick = function () {
-            module = document.getElementById(sem[index[0]][index[1]].modulID)
+            module = document.getElementById(sem[index[0]][index[1]].modulID);
             document.getElementById(originIndex[0]).appendChild(module);
-            appendModule(module,originIndex[0]);
+            appendModule(module, originIndex[0]);
             closeModal();
-        }
-
-        function closeModal(){
-            text="";
-            console.log(text)
-            document.body.style.overflow = "auto";
-            document.body.style.height = "auto";
-            reqmodal.classList.remove('visible');
-            overlay.classList.remove('visible');
         }
     }
 }

@@ -1,5 +1,5 @@
 <?php
-include_once ("database.php");
+include_once("database.php");
 global $conn;
 session_start();
 $bool = true;
@@ -29,9 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             VALUES (2, $userid, 'plan2')");
         mysqli_query($conn, "INSERT INTO plan (pID, uid, pname)
                             VALUES (3, $userid, 'plan3')");
-        for ($i=1;$i<4;$i++) {
+        for ($i = 1; $i < 4; $i++) {
 
-            $result=mysqli_query($conn, "insert into moduls_plan_pos (mID, pID, uid, listID, posID)
+            $result = mysqli_query($conn, "insert into moduls_plan_pos (mID, pID, uid, listID, posID)
                                         values  ('WK_1101', $i, $userid, 1, 0),
                                                 ('WK_1103', $i, $userid, 4, 0),
                                                 ('WK_1104', $i, $userid, 3, 0),
@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo(mysqli_error($conn));
         }
         $conn->close();
-        header("Location:login.php?success=true&password=true&username=true");
+        header("Location:login.php?success=true");
     }
 }
 ?>
@@ -109,30 +109,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <br>
                 <div class="tooltip">
                     <input id="username_textfield" type="text" name="registername" required="required">
-                    <span id = "tooltip1" class="tooltiptext">
-                        <?php if(!$bool) {
+                    <span id="tooltip1" class="tooltiptext">
+                        <?php if (!$bool) {
                             print '<script>document.getElementById("tooltip1").style.visibility = "visible";</script>';
-                            echo ("Benutzername bereits vergeben!");
+                            echo("Benutzername bereits vergeben!");
                         }
                         ?></span>
                 </div>
                 Passwort:
                 <br>
                 <div class="inputWithIcon">
-                    <input id="password1_textfield" type=password name="registerpasswort" required="required" oninput='passwordcheck();'>
+                    <input id="password1_textfield" type=password name="registerpasswort" required="required"
+                           oninput='passwordcheck();'>
                     <img id="icon1"></img>
                 </div>
                 Passwort wiederholen:
                 <br>
                 <div class="inputWithIcon">
-                    <input id="password2_textfield" type=password name="registerpasswort2" required="required"  oninput='passwordcheck();'>
+                    <input id="password2_textfield" type=password name="registerpasswort2" required="required"
+                           oninput='passwordcheck();'>
                     <img id="icon2"></img>
                 </div>
                 <input id="button_register" type="submit" value="Registrieren" disabled>
             </form>
             Bereits registriert?
             <br>
-            <button id="button_login" onclick="document.location='login.php?success=false&password=true&username=true'">Einloggen</button>
+            <button id="button_login" onclick="document.location='login.php?success=false'">
+                Einloggen
+            </button>
         </div>
         <footer><small>&copy; Copyright 2021, Peter Hemmann & Dominic Eckerle</small></footer>
     </div>
@@ -147,15 +151,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     var icon2 = document.getElementById('icon2');
     var button = document.getElementById('button_register');
 
-    var passwordcheck = function() {
+    var passwordcheck = function () {
         if (password1.value === password2.value) {
-            icon1.setAttribute("src", "img/icons/Haken.png");
-            icon2.setAttribute("src", "img/icons/Haken.png");
+            icon1.setAttribute("src", "images/Haken.png");
+            icon2.setAttribute("src", "images/Haken.png");
             button.disabled = false;
-        }
-        else {
-            icon1.setAttribute("src", "img/icons/Kreuz.png");
-            icon2.setAttribute("src", "img/icons/Kreuz.png");
+        } else {
+            icon1.setAttribute("src", "images/Kreuz.png");
+            icon2.setAttribute("src", "images/Kreuz.png");
             button.disabled = true;
         }
     };

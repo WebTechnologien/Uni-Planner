@@ -15,7 +15,7 @@ function clearHighlight(){
             const element = document.getElementById(sem[i][j].modulID);
             element.classList.remove("highlighted");
             element.classList.remove("notHighlighted");
-            element.classList.remove("noElevation")
+            element.classList.remove("elevation")
             document.getElementById("overlay").classList.remove('visible');
         }
     }
@@ -30,20 +30,17 @@ function checkSearchbarValue(){
                 || searchContent.trim().length>2&&(sem[i][j].modulID.trim().toLowerCase().replace("_","").includes(searchContent.toLowerCase().replace("_","")))){
 
                 element2.classList.add("highlighted");
+                element2.classList.add("elevation");
 
                 const overlay = document.getElementById("overlay");
                 overlay.classList.add('visible');
                 overlay.onclick = function (){
                     overlay.classList.remove('visible');
-                    document.querySelectorAll(".highlighted").forEach(el=>{
-                        el.classList.add("noElevation")
-                    })
+                    element2.classList.remove("elevation")
                 }
 
             }else if (searchContent.trim().length>2&&!(searchContent.startsWith("Label is:"))){
                 element2.classList.add("notHighlighted");
-            }else{
-                overlay.classList.remove('visible');
             }
 
         }
@@ -62,9 +59,6 @@ function checkSearchbarValue(){
             children = modules[i].querySelectorAll("." + filter);
             if (children.length > 0) {
                 modules[i].classList.add("highlighted")
-                document.querySelectorAll(".highlighted").forEach(el=>{
-                    el.classList.add("noElevation")
-                })
             }else{
                 modules[i].classList.add("notHighlighted");
             }

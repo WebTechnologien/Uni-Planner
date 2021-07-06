@@ -1,4 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap');
+body {
+    background-color: #F5F5F5;
+    position: relative;
+    font-family: sans-serif;
+    padding: 70px 0 0 0;
+}
+
+body::after {
+    content: '';
+    display: block;
+    height: 70px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    text-align: center;
+}
 
 /*Bereichsüberschrift*/
 h1 {
@@ -20,22 +39,13 @@ h2 {
 
 /*Modulüberschrift*/
 h3 {
-    font-size: 0.65vw;
+    font-size: 0.67vw;
     word-break: break-word;
-    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    font-family: sans-serif;
     margin-block-start: 0.67em;
     margin-block-end: 0.67em;
-
 }
-
-
-body {
-    background-color: #F5F5F5;
-    position: relative;
-    font-family: sans-serif;
-    padding: 70px 0 0 0;
-}
-
 
 #plan-container {
     display: table;
@@ -44,7 +54,6 @@ body {
     border-radius: 6px 6px 6px 6px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.11);
 }
-
 
 #semester-header {
     background: white;
@@ -138,10 +147,10 @@ body {
 .highlighted {
     box-shadow: 0 1px 10px 0 rgba(0, 128, 0, .8);
     position: relative;
-    z-index: 10;
+
 }
-*.noElevation{
-    z-index: auto;
+*.elevation{
+    z-index: 10;
 }
 
 .notHighlighted > h3 {
@@ -158,8 +167,8 @@ body {
     display: inline-block;
     margin: 5px 2px;
     padding: 0 8px;
-    font-weight: bold;
-    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-family: "Segoe UI", sans-serif;
     cursor: pointer;
 }
 
@@ -167,20 +176,26 @@ body {
 .label .tooltip {
     visibility: hidden;
     position: absolute;
-    width: 140px;
+    width: 170px;
     top: 100%;
     left: 50%;
-    margin-left: -70px; /* Use half of the width (120/2 = 60), to center the tooltip */
+    margin-left: -85px;
     margin-top: 8px;
     padding: 5px 0;
     border-radius: 6px;
 
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.66);
     color: #fff;
     text-align: center;
     z-index: 10;
     cursor: auto;
 }
+
+.WiSe .tooltip, .SoSe .tooltip{
+    width: 140px;
+    margin-left: -70px;
+}
+
 
 .label .tooltip::after {
     content: " ";
@@ -190,7 +205,7 @@ body {
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
-    border-color: transparent transparent black transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.66) transparent;
 }
 
 [draggable=false] .label:hover .tooltip {
@@ -234,21 +249,6 @@ body {
 .WPM, .kA {
     box-shadow: 0 0 0 0.07em #000;
 }
-
-body::after {
-    content: '';
-    display: block;
-    height: 70px;
-}
-
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 50px;
-    text-align: center;
-}
-
 
 .hide {
     transition: 0.001s;

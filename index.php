@@ -16,7 +16,7 @@ if (!($_SESSION["username"])) {
     <link rel="stylesheet" href="css/buttons.css">
     <script src="js/main.js"></script>
     <script src="js/dragActions.js"></script>
-    <script src="js/infoModal.js"></script>
+    <script src="js/modal.js"></script>
     <script src="js/searchModule.js"></script>
 </head>
 
@@ -30,7 +30,7 @@ if (!($_SESSION["username"])) {
     <div class="search-box">
         <input id="search-text" class="search-text" type="text" placeholder="Suche...">
         <div class="line"></div>
-        <button id="clear-button" class="clear-button" ></button>
+        <button id="clear-button" class="clear-button"></button>
     </div>
 
     <div class="dropdown">
@@ -61,15 +61,14 @@ if (!($_SESSION["username"])) {
         <button id=editButton class="button right-button"><img src="images/edit.png" alt=" "> Bearbeiten</button>
 
     </div>
-    <div id="semester-container"></div>
+    <div id="semester-container">
+        <div id="addSemester" class="unselectable hide"><h1>+</h1></div>
+    </div>
 
     <div id="wahlpflicht-header">
         <h1>Wahlpflicht-Module</h1>
     </div>
-    <div id="0" class="wahlpflicht-container semester">
-        <div id="addSemester" class="unselectable"><h1>+</h1></div>
-
-    </div>
+    <div id="0" class="wahlpflicht-container semester"></div>
 
 
     <div id="modal" class="modal">

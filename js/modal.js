@@ -1,29 +1,19 @@
 
 function handleModuleModal() {
     const modules = document.querySelectorAll('.module-draggable');
-    const closeBtn = document.querySelector('.close-button');
-    const overlay = document.getElementById('overlay');
 
     modules.forEach(module => {
         module.addEventListener('click', openModal);
     });
 
-    closeBtn.addEventListener('click', closeModal);
-    overlay.addEventListener('click', closeModal);
-
-
     function openModal(event) {
-
+        initModal(document.getElementById("modal"))
         event.stopPropagation();
         document.querySelectorAll(".highlighted").forEach(el=>{
-            el.classList.add("noElevation")
+            el.classList.remove("elevation")
         })
-        document.body.style.overflow = "hidden";
-        document.body.style.height = "100%"
 
         const modal = document.getElementById("modal");
-        modal.classList.add('visible');
-        overlay.classList.add('visible');
 
         module_i = getIndexOfModule(event.currentTarget.id);
         module = sem[module_i[0]][module_i[1]];
@@ -46,9 +36,6 @@ function handleModuleModal() {
                 let row = table.insertRow();
                 let d = row.insertCell();
 
-                if(attrKey.startsWith("Semester"))
-                    d.appendChild(document.createTextNode("Standard-Semester"));
-                else
                 d.appendChild(document.createTextNode(attrKey));
                 row.appendChild(d);
                 let d2 = row.insertCell();
@@ -63,15 +50,30 @@ function handleModuleModal() {
         }
         modal_body.appendChild(table);
     }
-
-    function closeModal() {
-        const modal = document.getElementById("modal");
-
-        document.body.style.overflow = "auto";
-        document.body.style.height = "auto";
-        modal.classList.remove('visible');
-        overlay.classList.remove('visible');
-    }
 }
+
+function initModal(modal){
+    document.body.style.overflow = "hidden";
+    document.body.style.height = "100%"
+    const closeBtn = document.querySelector('#'+modal.id+' .close-button');
+    const overlay = document.getElementById('overlay');
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', closeModal);
+    modal.classList.add('visible');
+    overlay.classList.add('visible');
+}
+
+function closeModal() {
+    const modals = document.getElementsByClassName("modal");
+    for (const modalElement of modals) {
+        modalElement.classList.remove('visible');
+    }
+    const overlay = document.getElementById('overlay');
+    overlay.classList.remove('visible');
+    document.body.style.overflow = "auto";
+    document.body.style.height = "auto";
+}
+
+
 
 

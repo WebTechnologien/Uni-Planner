@@ -19,8 +19,8 @@ window.onload = function () {
     document.getElementById("plan3").onclick = function () {
         request(3);
     }
-    document.getElementById("clear-button").onclick = function (){
-        document.getElementById("search-text").value= "";
+    document.getElementById("clear-button").onclick = function () {
+        document.getElementById("search-text").value = "";
         clearHighlight();
     }
     initSearchbar();
@@ -57,7 +57,6 @@ function initSemArray(response) {
 
     for (let i = 0; i < arr.length; i++) {
         sem[arr[i].listID].push(arr[i]);
-
     }
 
     refreshPlanContainer();
@@ -77,15 +76,16 @@ function refreshPlanContainer() {
 
     let lastindex, index = 0;
 
-    while (index < sem.length) {
 
+    //get last populated semester
+    while (index < sem.length) {
         if (sem[index].length !== 0) {
             lastindex = index;
         }
         index++;
     }
 
-    //filter empty semesters from array
+    //filter leading empty semesters from array
     sem = sem.filter(function (el, index) {
         return (index <= lastindex || index === 0);
     });
@@ -98,7 +98,7 @@ function refreshPlanContainer() {
             semester.id = i;
             semester.classList.add("semester");
             let semtitle = document.createElement("h2");
-            semtitle.innerHTML= 'Semester ' + i;
+            semtitle.innerHTML = 'Semester ' + i;
             semester.appendChild(semtitle);
             document.getElementById("semester-container").appendChild(semester);
         }
@@ -140,7 +140,7 @@ function refreshPlanContainer() {
                     initLabel(module, "CS", "Informatik-Grundlagen")
                     break;
                 case 3:
-                    initLabel(module, "BWL", "Wirtschafts-wissenschaften")
+                    initLabel(module, "BWL", "Wirtschaftswissenschaften")
                     break;
                 case 4:
                     initLabel(module, "QM", "Mathematische Grundlagen")
@@ -163,6 +163,83 @@ function refreshPlanContainer() {
     }
 }
 
+function removeEventListeners(){
+    //Clone plan-container to remove EventListeners
+    let el = document.getElementById("plan-container");
+    let elClone = el.cloneNode(true);
+    el.parentNode.replaceChild(elClone, el);
+}
+
+function loadViewMode() {
+    document.getElementById("saveButton").classList.add("hide");
+    document.getElementById("resetButton").classList.add("hide");
+    editBtn = document.getElementById("editButton");
+    editBtn.classList.remove("hide");
+
+    setModuleDraggable(false);
+    setLabelEventlisteners();
+    handleModuleModal();
+    editBtn.onclick = function () {
+        viewMode = false;
+        removeEventListeners()
+        loadEditMode();
+    }
+}
+
+function loadEditMode() {
+    document.getElementById("editButton").classList.add("hide");
+    if(document.getElementById("addSemester")===null){
+        initAddSemesterbutton()
+    }
+    addSemester.addEventListener("click", onAddSemester)
+
+    setModuleDraggable(true);
+    initDragDropEventListeners();
+
+    resetButton = document.getElementById("resetButton");
+    resetButton.classList.remove("hide");
+    cancelBtn = document.getElementById("cancelButton")
+    cancelBtn.classList.remove("hide")
+
+    cancelBtn.onclick = function () {
+        location.reload();
+    }
+
+    resetButton.onclick = function () {
+        initModal(document.getElementById("resetmodal"));
+
+        document.getElementById("modal-cancelButton").onclick = function () {
+            closeModal();
+        }
+        document.getElementById("modal-resetButton").onclick = function () {
+            closeModal();
+            resetModules(planID);
+            location.reload();
+        }
+    }
+    
+    saveBtn = document.getElementById("saveButton");
+    saveBtn.classList.remove("hide");
+    saveBtn.onclick = function () {
+        viewMode = true;
+        saveModules(planID);
+        cancelBtn.classList.add("hide")
+        addSemester.classList.add("hide")
+        document.getElementById("search-text").value = "";
+        refreshPlanContainer();
+    }
+}
+
+function initAddSemesterbutton(){
+    let addSemester = document.createElement("div")
+    addSemester.id = "addSemester";
+    addSemester.classList.add("unselectable");
+    txtnode = document.createElement("h1");
+    txtnode.innerHTML="+";
+    addSemester.appendChild(txtnode);
+    document.getElementById("semester-container").appendChild(addSemester);
+}
+
 function initLabel(module, cl, tooltiptext) {
     let label = document.createElement("div");
     label.classList.add("label");
@@ -175,101 +252,20 @@ function initLabel(module, cl, tooltiptext) {
     module.appendChild(label);
 }
 
-function loadViewMode() {
-    document.getElementById("saveButton").classList.add("hide");
-    document.getElementById("resetButton").classList.add("hide");
-    // document.getElementById("cancelButton").classList.add("hide");
+function onAddSemester() {
+    var newSemester = document.createElement("div");
+    newSemester.id = sem.length;
+    newSemester.classList.add("semester");
+    let semtitle = document.createElement("h2");
+    semtitle.innerHTML = 'Semester ' + sem.length;
+    newSemester.appendChild(semtitle);
 
-    editBtn = document.getElementById("editButton");
-    editBtn.classList.remove("hide");
-
-    setModuleDraggable(false);
-    setLabelEventlisteners();
-    handleModuleModal();
-    editBtn.onclick = function () {
-        viewMode = false;
-
-        //clone plan-container to remove EventListeners
-        let el = document.getElementById("plan-container");
-        let elClone = el.cloneNode(true);
-        el.parentNode.replaceChild(elClone, el);
-
-        loadEditMode();
-    }
-}
-
-function loadEditMode() {
-    document.getElementById("editButton").classList.add("hide");
-
-    let addSemester = document.createElement("div")
-    addSemester.id = "addSemester";
-    addSemester.classList.add("unselectable");
-    addSemester.innerHTML = '<h1>+</h1>';
-    addSemester.addEventListener("click", onAddSemester)
-    document.getElementById("semester-container").appendChild(addSemester);
-
-    setModuleDraggable(true);
-    initEventListeners();
-
-    resetButton = document.getElementById("resetButton");
-    resetButton.classList.remove("hide");
-
-    cancelBtn = document.getElementById("cancelButton")
-    cancelBtn.classList.remove("hide")
-
-    resetButton.onclick = function () {
-        const resetModal = document.getElementById("resetmodal")
-        const overlay = document.getElementById("overlay");
-        const closeBtn = document.querySelector('#resetmodal .close-button');
-
-        resetModal.classList.add('visible');
-        overlay.classList.add('visible');
-        closeBtn.addEventListener('click', closeModal);
-        overlay.addEventListener('click', closeModal);
-
-        document.body.style.overflow = "hidden";
-        document.body.style.height = "100%"
-
-        document.getElementById("modal-cancelButton").onclick = function () {
-            closeModal();
-        }
-        document.getElementById("modal-resetButton").onclick = function () {
-            closeModal();
-            resetModules(planID);
-            location.reload();
-        }
-
-        function closeModal() {
-            document.body.style.overflow = "auto";
-            document.body.style.height = "auto";
-            resetModal.classList.remove('visible');
-            overlay.classList.remove('visible');
-        }
-    }
-
-    cancelBtn.onclick = function () {
-        location.reload();
-    }
-
-    saveBtn = document.getElementById("saveButton");
-    saveBtn.classList.remove("hide");
-    saveBtn.onclick = function () {
-        viewMode = true;
-        saveModules(planID);
-        cancelBtn.classList.add("hide")
-        addSemester.classList.add("hide")
-
-        document.getElementById("search-text").value = "";
-        refreshPlanContainer();
-
-    }
-}
-
-function setModuleDraggable(flag) {
-    const modules = document.querySelectorAll('.module-draggable');
-    modules.forEach(module => {
-        module.draggable = flag;
-    });
+    let semcontainer = document.getElementById("semester-container");
+    semcontainer.insertBefore(newSemester, document.getElementById("addSemester"));
+    sem.push([]);
+    document.documentElement.scrollLeft += 240;
+    removeEventListeners();
+    loadEditMode();
 }
 
 function setLabelEventlisteners() {
@@ -290,27 +286,17 @@ function setLabelEventlisteners() {
     }
 }
 
-function onAddSemester() {
-    var newSemester = document.createElement("div");
-    newSemester.id = sem.length;
-    newSemester.classList.add("semester");
-    let semtitle = document.createElement("h2");
-    semtitle.innerHTML= 'Semester ' + sem.length;
-    newSemester.appendChild(semtitle);
-
-    let semcontainer = document.getElementById("semester-container");
-    semcontainer.insertBefore(newSemester, document.getElementById("addSemester"));
-    sem.push([]);
-
-    document.documentElement.scrollLeft += 240;
-    console.log(document.documentElement.scrollLeft + " " + window.outerWidth + " " + document.body.clientWidth);
-    initEventListeners();
+function setModuleDraggable(flag) {
+    const modules = document.querySelectorAll('.module-draggable');
+    modules.forEach(module => {
+        module.draggable = flag;
+    });
 }
 
 function saveModules(planID) {
 
     var reducedArr = JSON.parse(JSON.stringify(sem))
-    let keys = ["titel", "titel_long", "Creditpoints", "Semester", "WiSe", "Verantwortung", "Dozent", "Inhalte", "Prüfungsleistung", "Prüfungsvorleistung","Voraussetzungen","Vorraussetzung_fuer"];
+    let keys = ["titel", "titel_long", "Creditpoints", "Semester", "WiSe", "Verantwortung", "Dozent", "Inhalte", "Prüfungsleistung", "Prüfungsvorleistung", "Voraussetzungen", "Vorraussetzung_fuer"];
 
     for (let i = 0; i < reducedArr.length; i++) {
         for (let j = 0; j < reducedArr[i].length; j++) {
@@ -352,7 +338,7 @@ function resetModules(planID) {
 
 // https://stackoverflow.com/questions/5639346/what-is-the-shortest-function-for-reading-a-cookie-by-name-in-javascript
 function getCookie(c) {
-    return (document.cookie.match('(^|; )' + c + '=([^;]*)') || 0)[2]
+    return (document.cookie.match('(^|; )' + c + '=([^;]*)') || 0)[2];
 }
 
 

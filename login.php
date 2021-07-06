@@ -79,6 +79,14 @@ if (count($_POST)>0) {
 </body>
 </html>
 
+<script>
+    function showSnackbar() {
+        var x = document.getElementById("snackbar");
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
+</script>
+
 <?php   if (isset($_GET["success"])&&$_GET["success"]=="true") {
             print '<script>showSnackbar();</script>';
         }
@@ -89,11 +97,4 @@ if (count($_POST)>0) {
             print '<script>document.getElementById("tooltip2").style.visibility = "visible";</script>';
         } ?>
 
-<script>
-    function showSnackbar() {
-        var x = document.getElementById("snackbar");
-        x.className = "show";
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-    }
-</script>
 
