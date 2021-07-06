@@ -24,7 +24,7 @@
     width: auto;
 }
 
-/* https://codepen.io/daniandl/pen/boqyYE */
+/*---- Searchbar stark orientiert an https://codepen.io/daniandl/pen/boqyYE ----*/
 .search-text {
     background: 0;
     border: 0;
@@ -57,26 +57,25 @@
     transition: transform 0.3s ease;
     background: #5a9b97;
 }
+/*--------------------------------------------------------------*/
 
 .search-box .clear-button{
     position: relative;
     padding: 0 6px;
     border:0;
+    outline: 0;
     background-color: transparent;
     display: inline-block;
     vertical-align: middle;
-    outline: 0;
     cursor: pointer;
 }
 
 .clear-button:after {
     content: "\00d7";
     z-index:1;
-
     color: #adadad;
     font-weight: normal;
     font-size: 2em;
-
     cursor: pointer;
 }
 

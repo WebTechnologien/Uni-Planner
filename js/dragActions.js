@@ -141,7 +141,7 @@ function getIndexOfModule(moduleID) {
     return -1;
 }
 
-// https://jsfiddle.net/9foLrm7h/2/
+//-----function entnommen aus: https://jsfiddle.net/9foLrm7h/2/ -----
 function getDragAfterElement(targetContainer, y) {
     const draggable = [...targetContainer.querySelectorAll('.module-draggable')]
 
@@ -155,7 +155,7 @@ function getDragAfterElement(targetContainer, y) {
         }
     }, {offset: Number.NEGATIVE_INFINITY}).element
 }
-
+//-------------------------------------------------------------------
 
 function checkRequirements(index) {
 
