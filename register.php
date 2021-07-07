@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $table_users = $row['username'];
         if ($username == $table_users) {
             $bool = false;
+            header("Location:register.php?exists=true");
             break;
         }
     }
@@ -76,11 +77,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 ('WK_1614', $i, $userid, 0, 11),
                                                 ('WK_1615', $i, $userid, 0, 12);");
         }
-        if ($result) {
-            echo($result);
-        } else {
-            echo(mysqli_error($conn));
-        }
         $conn->close();
         header("Location:login.php?success=true");
     }
@@ -109,26 +105,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <br>
                 <div class="tooltip">
                     <input id="username_textfield" type="text" name="registername" required="required">
-                    <span id="tooltip1" class="tooltiptext">
-                        <?php if (!$bool) {
-                            print '<script>document.getElementById("tooltip1").style.visibility = "visible";</script>';
-                            print ("Benutzername bereits vergeben!");
-                        }
-                        ?></span>
+                    <span id="tooltip1" class="tooltiptext">Benutzername bereits vergeben!</span>
                 </div>
                 Passwort:
                 <br>
                 <div class="inputWithIcon">
                     <input id="password1_textfield" type=password name="registerpasswort" required="required"
                            oninput='passwordcheck();'>
-                    <img id="icon1"></img>
+                    <img id="icon1" alt="" src="">
                 </div>
                 Passwort wiederholen:
                 <br>
                 <div class="inputWithIcon">
                     <input id="password2_textfield" type=password name="registerpasswort2" required="required"
                            oninput='passwordcheck();'>
-                    <img id="icon2"></img>
+                    <img id="icon2" alt="" src="">
                 </div>
                 <input id="button_register" type="submit" value="Registrieren" disabled>
             </form>
@@ -145,13 +136,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </html>
 
 <script>
-    var password1 = document.getElementById('password1_textfield');
-    var password2 = document.getElementById('password2_textfield');
-    var icon1 = document.getElementById('icon1');
-    var icon2 = document.getElementById('icon2');
-    var button = document.getElementById('button_register');
+    const password1 = document.getElementById('password1_textfield');
+    const password2 = document.getElementById('password2_textfield');
+    const icon1 = document.getElementById('icon1');
+    const icon2 = document.getElementById('icon2');
+    const button = document.getElementById('button_register');
 
-    var passwordcheck = function () {
+    const passwordcheck = function () {
         if (password1.value === password2.value) {
             icon1.setAttribute("src", "images/Haken.png");
             icon2.setAttribute("src", "images/Haken.png");
@@ -164,4 +155,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     };
 </script>
 
-
+<?php
+    if (isset($_GET["exists"])&&$_GET["exists"]=="true") {
+        print '<script>document.getElementById("tooltip1").style.visibility = "visible";</script>';
+    }
+?>
