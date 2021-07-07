@@ -2,14 +2,14 @@ var sem = [];
 var viewMode = true;
 var planID;
 
-
-if (getCookie("planID")) {
-    request(getCookie("planID"));
-} else {
-    request(1);
-}
-
 window.onload = function () {
+
+    if (getCookie("planID")) {
+        request(getCookie("planID"));
+    } else {
+        request(1);
+    }
+
     document.getElementById("plan1").onclick = function () {
         request(1);
     }

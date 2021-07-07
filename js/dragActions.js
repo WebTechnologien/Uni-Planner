@@ -1,13 +1,11 @@
 let originIndex;
-let lastAfterElement
 
 function initDragDropEventListeners() {
-    const semContainers = document.querySelectorAll('.semester');
+    const semesters = document.querySelectorAll('.semester');
     const modules = document.querySelectorAll('.module-draggable');
 
-    semContainers.forEach(semContainer => {
+    semesters.forEach(semContainer => {
         semContainer.addEventListener('dragover', onDragOver);
-        semContainer.addEventListener('dragenter', onDragEnter);
         semContainer.addEventListener('dragleave', onDragLeave)
         semContainer.addEventListener('drop', onDrop);
     });
@@ -19,59 +17,47 @@ function initDragDropEventListeners() {
 
 
     function onDragStart(event) {
+        event.currentTarget.classList.add('dragging','hide')
+
         event.dataTransfer.clearData();
         event.dataTransfer.setData('text/plain', event.target.id);
+
         modules.forEach(module => {
             if (event.currentTarget !== module) {
                 module.classList.add('noPointer');
             }
         })
-        let module = document.getElementById(event.target.id);
+
         originIndex = getIndexOfModule(event.target.id);
-        module.classList.add('dragging')
-        if (module.classList.contains("wahlpflichtmodul")) {
-            event.dataTransfer.setData('wahlpflichtmodul', '')
-        }
-        event.currentTarget.classList.add('hide');
+
     }
 
     function onDragOver(event) {
         const module = document.querySelector('.dragging')
-        let target = event.currentTarget;
+        let semester = event.currentTarget;
 
         if (parseInt(event.currentTarget.id) === 0) {
-            if (event.dataTransfer.types.includes("wahlpflichtmodul")) {
+            if (module.classList.contains("wahlpflichtmodul")) {
                 event.preventDefault();
                 event.currentTarget.classList.add('dragenter');
+                semester.appendChild(module);
+                appendModule(module, semester.id);
             }
-        } else if (target.childNodes.length === 0) {
+        } else if (semester.childNodes.length === 0) {
             event.preventDefault();
-            target.appendChild(module);
-            appendModule(module, target.id);
+            semester.appendChild(module);
+            appendModule(module, semester.id);
         } else {
-            const afterElement = getDragAfterElement(target, event.clientY)
             event.preventDefault();
+            event.currentTarget.classList.add('dragenter');
+            const afterElement = getDragAfterElement(semester, event.clientY)
             if (afterElement == null) {
-                target.appendChild(module);
-                appendModule(module, target.id)
+                semester.appendChild(module);
+                appendModule(module, semester.id)
             } else {
-                target.insertBefore(module, afterElement);
-                lastAfterElement = afterElement;
+                semester.insertBefore(module, afterElement);
                 moveModule(module, afterElement);
             }
-        }
-
-        event.currentTarget.classList.add('dragenter');
-    }
-
-
-    function onDragEnter(event) {
-        if (parseInt(event.currentTarget.id) === 0) {
-            if (event.dataTransfer.types.includes("wahlpflichtmodul")) {
-                event.preventDefault();
-            }
-        } else {
-            event.preventDefault();
         }
     }
 
@@ -80,33 +66,18 @@ function initDragDropEventListeners() {
     }
 
     function onDrop(event) {
-        event.preventDefault();
-        const moduleID = event.dataTransfer.getData('text');
-        const module = document.getElementById(moduleID);
-        let target = event.currentTarget;
-        const afterElement = getDragAfterElement(target, event.clientY);
-
-        if (parseInt(event.currentTarget.id) === 0) {
-            console.log("Target is Wahlpflicht-Area is dragged module a Wahlplichtmodul?:" + module.classList.contains("wahlpflichtmodul"))
-            if (module.classList.contains("wahlpflichtmodul")) {
-                target.appendChild(module);
-                appendModule(module, target.id);
-            }
-        }
-
         event.currentTarget.classList.remove('dragenter');
-        checkRequirements(getIndexOfModule(module.id));
+        const module = event.dataTransfer.getData('text');
+        checkRequirements(getIndexOfModule(module));
     }
 
     function onDragEnd(event) {
+        event.currentTarget.classList.remove('hide','dragging');
         modules.forEach(modules => {
             modules.classList.remove('noPointer');
-            modules.classList.remove('dragging');
         })
-        event.currentTarget.classList.remove('hide');
     }
 }
-
 
 function appendModule(module, newIndex) {
     let index = getIndexOfModule(module.id);
@@ -122,7 +93,6 @@ function moveModule(module, afterElement) {
     let newIndex = getIndexOfModule(afterElement.id);
 
     if (oldindex[0] !== newIndex[0] || oldindex[1] !== newIndex[1]) {
-        console.log(sem[oldindex[0]][oldindex[1]].titel + " " + oldindex + " to " + newIndex)
 
         moduleobj = sem[oldindex[0]][oldindex[1]];
         sem[oldindex[0]].splice(oldindex[1], 1);
@@ -141,29 +111,13 @@ function getIndexOfModule(moduleID) {
     return -1;
 }
 
-//-----function entnommen aus: https://jsfiddle.net/9foLrm7h/2/ -----
-function getDragAfterElement(targetContainer, y) {
-    const draggable = [...targetContainer.querySelectorAll('.module-draggable')]
-
-    return draggable.reduce((closest, child) => {
-        const box = child.getBoundingClientRect()
-        const offset = y - box.top - box.height / 2
-        if (offset < 0 && offset > closest.offset) {
-            return {offset: offset, element: child}
-        } else {
-            return closest
-        }
-    }, {offset: Number.NEGATIVE_INFINITY}).element
-}
-//-------------------------------------------------------------------
-
 function checkRequirements(index) {
 
     const requirements = sem[index[0]][index[1]].Voraussetzungen.split("(").slice(1);
     let text = "";
     for (const requirementsElement of requirements) {
         r_index = getIndexOfModule(requirementsElement.substr(0, requirementsElement.indexOf(")")));
-        if (r_index[0] >= index[0]) {
+        if (r_index[0] >= index[0] && index[0] !== 0) {
             text += "Für das Modul \"" + sem[index[0]][index[1]].titel.trim() + "\" wird \"" + sem[r_index[0]][r_index[1]].titel + "\" vorrausgesetzt!<br>";
         }
     }
@@ -190,3 +144,19 @@ function checkRequirements(index) {
         }
     }
 }
+
+//-----function entnommen aus: https://jsfiddle.net/9foLrm7h/2/ -----
+function getDragAfterElement(targetContainer, y) {
+    const draggable = [...targetContainer.querySelectorAll('.module-draggable')]
+
+    return draggable.reduce((closest, child) => {
+        const box = child.getBoundingClientRect()
+        const offset = y - box.top - box.height / 2
+        if (offset < 0 && offset > closest.offset) {
+            return {offset: offset, element: child}
+        } else {
+            return closest
+        }
+    }, {offset: Number.NEGATIVE_INFINITY}).element
+}
+//-------------------------------------------------------------------

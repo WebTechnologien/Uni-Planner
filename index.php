@@ -54,7 +54,7 @@ if (!($_SESSION["username"])) {
 
         <button id=resetButton class="button left-button hide"><img src="images/reset.png" alt=" "> Zur&uuml;cksetzen
         </button>
-        <h1>Semester&uuml;bersicht</h1>
+        <h1>Mein Semesterplan</h1>
         <button id=cancelButton class="button cancel-button hide"><img src="images/cancel.png" alt=" "> Abbrechen
         </button>
         <button id=saveButton class="button right-button"><img src="images/save.png" alt=" "> Speichern</button>
@@ -62,7 +62,7 @@ if (!($_SESSION["username"])) {
 
     </div>
     <div id="semester-container">
-        <div id="addSemester" class="unselectable hide"><h1>+</h1></div>
+
     </div>
 
     <div id="wahlpflicht-header">
