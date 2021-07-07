@@ -61,4 +61,3 @@ if ($result) {
     echo(mysqli_error($conn));
 }
 $conn->close();
-?>

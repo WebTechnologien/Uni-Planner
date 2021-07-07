@@ -21,10 +21,5 @@ for ($x = 0; $x < $xlength; $x++) {
     }
 }
 
-if ($result) {
-    echo($result);
-} else {
-    echo(mysqli_error($conn));
-}
 $conn->close();
-?>
+

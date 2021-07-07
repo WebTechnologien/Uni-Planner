@@ -2,7 +2,6 @@
 include_once ("database.php");
 global $conn;
 session_start();
-$message = "";
 
 if (count($_POST)>0) {
 
@@ -17,11 +16,11 @@ if (count($_POST)>0) {
             $_SESSION["username"] = $row['username'];
         }
         else {
-            $message = "Falsches Passwort!";
+            header("Location:login.php?password=false");
         }
     }
     else {
-    $message = "Falscher Benutzername!";
+        header("Location:login.php?username=false");
     }
     if (isset($_SESSION["uid"])) {
         header("Location:index.php");
@@ -46,19 +45,13 @@ if (count($_POST)>0) {
                 <br>
                 <div class="tooltip">
                     <input id="username_textfield" name="loginname" required="required">
-                    <span id = "tooltip1" class="tooltiptext">Falscher Benutzername!
-                        <?php if($message=="Falscher Benutzername!") {
-                        header("Location:login.php?username=false");
-                        } ?></span>
+                    <span id = "tooltip1" class="tooltiptext">Falscher Benutzername!</span>
                 </div>
                 Passwort:
                 <br>
                 <div class="tooltip">
                     <input id="password_textfield" name="loginpasswort" type=password required="required">
-                    <span id = "tooltip2" class="tooltiptext">Falsches Passwort!
-                        <?php if($message=="Falsches Passwort!") {
-                            header("Location:login.php?password=false");
-                        } ?></span>
+                    <span id = "tooltip2" class="tooltiptext">Falsches Passwort!</span>
                 </div>
                 <br>
                 <input id="button_login" type=submit name=submit value="Einloggen">
@@ -79,22 +72,22 @@ if (count($_POST)>0) {
 </body>
 </html>
 
-<script>
-    function showSnackbar() {
-        const x = document.getElementById("snackbar");
-        x.className = "show";
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-    }
-</script>
-
-<?php   if (isset($_GET["success"])&&$_GET["success"]=="true") {
-            print '<script>showSnackbar();</script>';
+    <script>
+        function showSnackbar() {
+            const x = document.getElementById("snackbar");
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
         }
-        if (isset($_GET["username"])&&$_GET["username"]=="false") {
-            print '<script>document.getElementById("tooltip1").style.visibility = "visible";</script>';
-        }
-        if (isset($_GET["password"])&&$_GET["password"]=="false") {
-            print '<script>document.getElementById("tooltip2").style.visibility = "visible";</script>';
-        } ?>
+    </script>
 
+<?php
 
+if (isset($_GET["success"])&&$_GET["success"]=="true") {
+    print '<script>showSnackbar();</script>';
+}
+if (isset($_GET["username"])&&$_GET["username"]=="false") {
+    print '<script>document.getElementById("tooltip1").style.visibility = "visible";</script>';
+}
+if (isset($_GET["password"])&&$_GET["password"]=="false") {
+    print '<script>document.getElementById("tooltip2").style.visibility = "visible";</script>';
+} ?>
