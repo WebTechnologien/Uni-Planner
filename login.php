@@ -33,6 +33,7 @@ if (count($_POST)>0) {
 <head>
     <meta charset="UTF-8">
     <title>Uni-Planner Login</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/logo.png">
     <link rel="stylesheet" href="css/login.css">
 </head>
 <body>

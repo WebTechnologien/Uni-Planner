@@ -6,7 +6,7 @@ function initDragDropEventListeners() {
 
     semesters.forEach(semContainer => {
         semContainer.addEventListener('dragover', onDragOver);
-        semContainer.addEventListener('dragleave', onDragLeave)
+        semContainer.addEventListener('dragleave', onDragLeave);
         semContainer.addEventListener('drop', onDrop);
     });
 
@@ -17,7 +17,7 @@ function initDragDropEventListeners() {
 
 
     function onDragStart(event) {
-        event.currentTarget.classList.add('dragging','hide')
+        event.currentTarget.classList.add('dragging', 'hide');
 
         event.dataTransfer.clearData();
         event.dataTransfer.setData('text/plain', event.target.id);
@@ -33,7 +33,7 @@ function initDragDropEventListeners() {
     }
 
     function onDragOver(event) {
-        const module = document.querySelector('.dragging')
+        const module = document.querySelector('.dragging');
         let semester = event.currentTarget;
 
         if (parseInt(event.currentTarget.id) === 0) {
@@ -43,17 +43,13 @@ function initDragDropEventListeners() {
                 semester.appendChild(module);
                 appendModule(module, semester.id);
             }
-        } else if (semester.childNodes.length === 0) {
-            event.preventDefault();
-            semester.appendChild(module);
-            appendModule(module, semester.id);
         } else {
             event.preventDefault();
             event.currentTarget.classList.add('dragenter');
-            const afterElement = getDragAfterElement(semester, event.clientY)
+            const afterElement = getDragAfterElement(semester, event.clientY);
             if (afterElement == null) {
                 semester.appendChild(module);
-                appendModule(module, semester.id)
+                appendModule(module, semester.id);
             } else {
                 semester.insertBefore(module, afterElement);
                 moveModule(module, afterElement);
@@ -72,7 +68,7 @@ function initDragDropEventListeners() {
     }
 
     function onDragEnd(event) {
-        event.currentTarget.classList.remove('hide','dragging');
+        event.currentTarget.classList.remove('hide', 'dragging');
         modules.forEach(modules => {
             modules.classList.remove('noPointer');
         })
@@ -159,4 +155,5 @@ function getDragAfterElement(targetContainer, y) {
         }
     }, {offset: Number.NEGATIVE_INFINITY}).element
 }
+
 //-------------------------------------------------------------------

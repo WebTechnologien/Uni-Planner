@@ -88,6 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Uni-Planner Registrierung</title>
+    <link rel="shortcut icon" type="image/x-icon" href="images/logo.png">
     <link rel="stylesheet" href="css/register.css">
 </head>
 <body>
